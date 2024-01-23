@@ -131,7 +131,6 @@ namespace CosmosKernel1
             Console.WriteLine("  ");
             Console.BackgroundColor = ConsoleColor.Red;
             Console.WriteLine("Shell Started. Type help for help,thanks a lot to dontsmi1e for code support");
-            Console.WriteLine("Thanks for using testing branch!");
             Cosmos.Core.CPU.GetCPUBrandString();
             Console.BackgroundColor = ConsoleColor.Blue;
             if (File.Exists("0:\\nonameos\\User.cs"))
@@ -226,7 +225,7 @@ namespace CosmosKernel1
 
                     Console.BackgroundColor = ConsoleColor.Red;
                     Console.WriteLine("thanks a lot to dontsmi1e from discord for code support");
-                    Console.WriteLine("Welcome to NoNameOS 0.1.7 Pre-alpha! build 229: Milestone 3.5 Codename'Mirage'");
+                    Console.WriteLine("Welcome to NoNameOS 0.1.7 Pre-alpha! build 229: Milestone 3.5.Codename'Mirage'");
                     Console.WriteLine("Milestone 2 adds such thing as: File system and commands to interact with it!");
                     Console.WriteLine("Milestone 3 From now milestone 3 adds login screen and setup");
                     Console.WriteLine("Milestone 3.1 :The Git Repo Update! Adds an GitHub repo.");
