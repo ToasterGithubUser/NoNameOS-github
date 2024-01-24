@@ -121,9 +121,7 @@ namespace CosmosKernel1
             }
             Console.ForegroundColor = ConsoleColor.White;
             Console.WriteLine("  ");
-            Console.Write("RAM:");
-            Console.Write(GCImplementation.GetAvailableRAM());
-            Console.Write("MB Avaliable");
+            Console.Write("RAM:"+GCImplementation.GetAvailableRAM()+ "MB Avaliable");
             Console.ForegroundColor = ConsoleColor.Green;
             Console.Write("[OK!]");
             Console.ForegroundColor = ConsoleColor.White;
@@ -228,7 +226,7 @@ namespace CosmosKernel1
 
                 Console.BackgroundColor = ConsoleColor.Red;
                 Console.WriteLine("thanks a lot to dontsmi1e from discord for code support");
-                Console.WriteLine("Welcome to NoNameOS 0.1.7 Pre-alpha! build 233: Milestone 3.5 Codename'Mirage'");
+                Console.WriteLine("Welcome to NoNameOS 0.1.7 Pre-alpha! build 235: Milestone 3.5 Codename'Mirage'");
                 Console.WriteLine("Milestone 2 adds such thing as: File system and commands to interact with it!");
                 Console.WriteLine("Milestone 3 From now milestone 3 adds login screen and setup");
                 Console.WriteLine("Milestone 3.1 :The Git Repo Update! Adds an GitHub repo.");
@@ -407,9 +405,7 @@ namespace CosmosKernel1
                 Console.WriteLine("        " + $"{drive.TotalSize}" + " bytes");
                 Console.WriteLine("        " + $"{drive.AvailableFreeSpace}" + " bytes free");
                 Console.WriteLine("File System:" + fs_type);
-                Console.Write("RAM:");
-                Console.Write(GCImplementation.GetAvailableRAM());
-                Console.WriteLine("MB Avaliable");
+                Console.WriteLine("RAM:"+GCImplementation.GetAvailableRAM()+"MB(Avaliable)");
             }
             }
         }
