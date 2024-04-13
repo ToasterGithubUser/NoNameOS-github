@@ -17,25 +17,15 @@ using System.Buffers;
 using Cosmos.Core;
 using Cosmos.System;
 using Console = System.Console;
-using PrismAPI;
-using PrismAPI.Graphics.Rasterizer;
-using PrismAPI.UI;
-using PrismAPI.Hardware.GPU;
-using PrismAPI.Graphics;
-
-using PrismAPI.UI.Controls;
-
+using System.Linq.Expressions;
 namespace CosmosKernel1
 {
 
 
     public class Kernel : Sys.Kernel
     {
-        PrismAPI.Graphics.Canvas canvas;
+        Canvas canvas;
         public static VGAScreen VScreen = new VGAScreen();
-        public Display Canvas = null!;
-        public Window MyWindow = null!;
-        public PrismAPI.UI.Controls.Label MyLabel = null!;
 
         public void FormatDisk(int index, string format, bool quick = true) { }
         Sys.FileSystem.CosmosVFS fs = new Sys.FileSystem.CosmosVFS();
@@ -119,19 +109,13 @@ namespace CosmosKernel1
            To not specify the Mode and pick the best one, use:
            canvas = FullScreenCanvas.GetFullScreenCanvas();
            */
-                Canvas = Display.GetDisplay(800, 600);
                 MouseManager.ScreenWidth = 800;
                 MouseManager.ScreenHeight = 600;
+                canvas = FullScreenCanvas.GetFullScreenCanvas(new Mode(800, 600, ColorDepth.ColorDepth32));
 
-                 // Define the canvas instance.
-                MyWindow = new(50, 50, 500, 400, ("My Window"));
-                MyLabel = new(15, 15, $"{Canvas.GetFPS()} FPS");
-
-                MyWindow.Controls.Add(MyLabel);
-                WindowManager.Windows.Add(MyWindow);
+                canvas.Clear(Color.Blue);
 
                 // This will clear the canvas with the specified color.
-                Canvas.Clear(PrismAPI.Graphics.Color.GoogleBlue);
                 a = "graphics";
             }
             else
@@ -221,18 +205,7 @@ namespace CosmosKernel1
             current_directory = @"0:\";
             if (a == "graphics")
             {
-                try
-                {
-                    Canvas.Clear(PrismAPI.Graphics.Color.GoogleBlue); // Draw a green background.
-                    WindowManager.Update(Canvas);
-                    Canvas.DrawCircle((int)MouseManager.X, (int)MouseManager.Y, 10, PrismAPI.Graphics.Color.Black); // Draw the mouse.
-                    
-                    Canvas.Update();
-                }
-                catch(Exception e) {
-                    Canvas.DrawString(300, 200,e.ToString(), default, PrismAPI.Graphics.Color.White);
-                Canvas.Update();
-                }
+                
             }
             else
             {
@@ -284,7 +257,7 @@ namespace CosmosKernel1
 
                     Console.BackgroundColor = ConsoleColor.Red;
                     Console.WriteLine("thanks a lot to dontsmi1e from discord for code support");
-                    Console.WriteLine("Welcome to NoNameOS 0.1.7 Pre-alpha! build 267: Milestone 4 Codename'Aero'");
+                    Console.WriteLine("Welcome to NoNameOS 0.1.7 Pre-alpha! build 268: Milestone 4 Codename'Aero'");
                     Console.WriteLine("Milestone 2 adds such thing as: File system and commands to interact with it!");
                     Console.WriteLine("Milestone 3 From now milestone 3 adds login screen and setup");
                     Console.WriteLine("Milestone 3.1 :The Git Repo Update! Adds an GitHub repo.");
