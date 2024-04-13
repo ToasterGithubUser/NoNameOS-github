@@ -124,7 +124,7 @@ namespace CosmosKernel1
                 MouseManager.ScreenHeight = 600;
 
                  // Define the canvas instance.
-                MyWindow = new(50, 50, 500, 400, ("My Window" + Canvas.GetFPS()));
+                MyWindow = new(50, 50, 500, 400, ("My Window"));
                 MyLabel = new(15, 15, $"{Canvas.GetFPS()} FPS");
 
                 MyWindow.Controls.Add(MyLabel);
@@ -224,8 +224,6 @@ namespace CosmosKernel1
                 try
                 {
                     Canvas.Clear(PrismAPI.Graphics.Color.GoogleBlue); // Draw a green background.
-                    MyLabel = new(15, 15, $"{Canvas.GetFPS()} FPS");
-                    MyWindow.Controls.Add(MyLabel);
                     WindowManager.Update(Canvas);
                     Canvas.DrawCircle((int)MouseManager.X, (int)MouseManager.Y, 10, PrismAPI.Graphics.Color.Black); // Draw the mouse.
                     
@@ -286,7 +284,7 @@ namespace CosmosKernel1
 
                     Console.BackgroundColor = ConsoleColor.Red;
                     Console.WriteLine("thanks a lot to dontsmi1e from discord for code support");
-                    Console.WriteLine("Welcome to NoNameOS 0.1.7 Pre-alpha! build 264: Milestone 4 Codename'Aero'");
+                    Console.WriteLine("Welcome to NoNameOS 0.1.7 Pre-alpha! build 267: Milestone 4 Codename'Aero'");
                     Console.WriteLine("Milestone 2 adds such thing as: File system and commands to interact with it!");
                     Console.WriteLine("Milestone 3 From now milestone 3 adds login screen and setup");
                     Console.WriteLine("Milestone 3.1 :The Git Repo Update! Adds an GitHub repo.");
