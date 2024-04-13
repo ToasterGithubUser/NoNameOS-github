@@ -39,23 +39,6 @@ namespace CosmosKernel1
 
         public void FormatDisk(int index, string format, bool quick = true) { }
         Sys.FileSystem.CosmosVFS fs = new Sys.FileSystem.CosmosVFS();
-        private readonly Bitmap bitmap = new Bitmap(10, 10,
-                new byte[] { 0, 255, 243, 255, 0, 255, 243, 255, 0, 255, 243, 255, 0, 255, 243, 255, 0, 255, 243, 255, 0,
-                    255, 243, 255, 0, 255, 243, 255, 0, 255, 243, 255, 0, 255, 243, 255, 0, 255, 243, 255, 0, 255, 243, 255,
-                    0, 255, 243, 255, 0, 255, 243, 255, 0, 255, 243, 255, 0, 255, 243, 255, 0, 255, 243, 255, 0, 255, 243, 255,
-                    0, 255, 243, 255, 0, 255, 243, 255, 0, 255, 243, 255, 0, 255, 243, 255, 0, 255, 243, 255, 23, 59, 88, 255,
-                    23, 59, 88, 255, 0, 255, 243, 255, 0, 255, 243, 255, 23, 59, 88, 255, 23, 59, 88, 255, 0, 255, 243, 255, 0,
-                    255, 243, 255, 0, 255, 243, 255, 23, 59, 88, 255, 153, 57, 12, 255, 0, 255, 243, 255, 0, 255, 243, 255, 0, 255,
-                    243, 255, 0, 255, 243, 255, 153, 57, 12, 255, 23, 59, 88, 255, 0, 255, 243, 255, 0, 255, 243, 255, 0, 255, 243,
-                    255, 0, 255, 243, 255, 0, 255, 243, 255, 72, 72, 72, 255, 72, 72, 72, 255, 0, 255, 243, 255, 0, 255, 243, 255, 0,
-                    255, 243, 255, 0, 255, 243, 255, 0, 255, 243, 255, 0, 255, 243, 255, 0, 255, 243, 255, 0, 255, 243, 255, 72, 72,
-                    72, 255, 72, 72, 72, 255, 0, 255, 243, 255, 0, 255, 243, 255, 0, 255, 243, 255, 0, 255, 243, 255, 0, 255, 243, 255,
-                    10, 66, 148, 255, 0, 255, 243, 255, 0, 255, 243, 255, 0, 255, 243, 255, 0, 255, 243, 255, 0, 255, 243, 255, 0, 255,
-                    243, 255, 10, 66, 148, 255, 0, 255, 243, 255, 0, 255, 243, 255, 0, 255, 243, 255, 10, 66, 148, 255, 10, 66, 148, 255,
-                    10, 66, 148, 255, 10, 66, 148, 255, 10, 66, 148, 255, 10, 66, 148, 255, 0, 255, 243, 255, 0, 255, 243, 255, 0, 255,
-                    243, 255, 0, 255, 243, 255, 0, 255, 243, 255, 10, 66, 148, 255, 10, 66, 148, 255, 10, 66, 148, 255, 10, 66, 148,
-                    255, 0, 255, 243, 255, 0, 255, 243, 255, 0, 255, 243, 255, 0, 255, 243, 255, 0, 255, 243, 255, 0, 255, 243, 255,
-                    0, 255, 243, 255, 0, 255, 243, 255, 0, 255, 243, 255, 0, 255, 243, 255, 0, 255, 243, 255, 0, 255, 243, 255, 0, 255, 243, 255, }, ColorDepth.ColorDepth32);
 
 
 
@@ -141,14 +124,14 @@ namespace CosmosKernel1
                 MouseManager.ScreenHeight = 600;
 
                  // Define the canvas instance.
-                MyWindow = new(50, 50, 500, 400, "My Window");
+                MyWindow = new(50, 50, 500, 400, ("My Window" + Canvas.GetFPS()));
                 MyLabel = new(15, 15, $"{Canvas.GetFPS()} FPS");
 
                 MyWindow.Controls.Add(MyLabel);
                 WindowManager.Windows.Add(MyWindow);
 
                 // This will clear the canvas with the specified color.
-                Canvas.Clear(PrismAPI.Graphics.Color.Blue);
+                Canvas.Clear(PrismAPI.Graphics.Color.GoogleBlue);
                 a = "graphics";
             }
             else
@@ -156,8 +139,6 @@ namespace CosmosKernel1
                 a = "text";
             }
 
-            Cosmos.Core.CPU.GetCPUBrandString();
-            fs.GetDisks();
             System.Threading.Thread.Sleep(1000);
 
             foreach (Disk disk in fs.GetDisks())
@@ -242,9 +223,12 @@ namespace CosmosKernel1
             {
                 try
                 {
-                    Canvas.Clear(PrismAPI.Graphics.Color.White); // Draw a green background.
+                    Canvas.Clear(PrismAPI.Graphics.Color.GoogleBlue); // Draw a green background.
+                    MyLabel = new(15, 15, $"{Canvas.GetFPS()} FPS");
+                    MyWindow.Controls.Add(MyLabel);
                     WindowManager.Update(Canvas);
                     Canvas.DrawCircle((int)MouseManager.X, (int)MouseManager.Y, 10, PrismAPI.Graphics.Color.Black); // Draw the mouse.
+                    
                     Canvas.Update();
                 }
                 catch(Exception e) {
@@ -302,7 +286,7 @@ namespace CosmosKernel1
 
                     Console.BackgroundColor = ConsoleColor.Red;
                     Console.WriteLine("thanks a lot to dontsmi1e from discord for code support");
-                    Console.WriteLine("Welcome to NoNameOS 0.1.7 Pre-alpha! build 260: Milestone 4 Codename''");
+                    Console.WriteLine("Welcome to NoNameOS 0.1.7 Pre-alpha! build 264: Milestone 4 Codename'Aero'");
                     Console.WriteLine("Milestone 2 adds such thing as: File system and commands to interact with it!");
                     Console.WriteLine("Milestone 3 From now milestone 3 adds login screen and setup");
                     Console.WriteLine("Milestone 3.1 :The Git Repo Update! Adds an GitHub repo.");
