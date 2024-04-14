@@ -121,8 +121,7 @@ namespace CosmosKernel1
             }
             Console.ForegroundColor = ConsoleColor.White;
             Console.WriteLine("  ");
-            Console.Write("RAM:");
-            Console.Write(GCImplementation.GetAvailableRAM());
+            Console.Write("RAM:"+GCImplementation.GetAvailableRAM()+ "MB Avaliable");
             Console.ForegroundColor = ConsoleColor.Green;
             Console.Write("[OK!]");
             Console.ForegroundColor = ConsoleColor.White;
@@ -131,8 +130,10 @@ namespace CosmosKernel1
             Console.WriteLine("  ");
             Console.BackgroundColor = ConsoleColor.Red;
             Console.WriteLine("Shell Started. Type help for help,thanks a lot to dontsmi1e for code support");
+            Console.BackgroundColor = ConsoleColor.Green;
+            Console.WriteLine("Thanks for using testing branch!");
             Cosmos.Core.CPU.GetCPUBrandString();
-            Console.BackgroundColor = ConsoleColor.Blue;
+            Console.BackgroundColor = ConsoleColor.Black;
             if (File.Exists("0:\\nonameos\\User.cs"))
             {
                 Console.WriteLine("Hello," + File.ReadAllText("0:\\nonameos\\User.cs"));
@@ -176,8 +177,8 @@ namespace CosmosKernel1
         {
             Kernel kernel = new Kernel();
             current_directory = @"0:\";
-            
-            Console.BackgroundColor = ConsoleColor.Blue;
+
+            Console.BackgroundColor = ConsoleColor.Black;
             if (!File.Exists(@"0:\nonameos\System.txt"))
             {
 
@@ -189,39 +190,39 @@ namespace CosmosKernel1
                     Cosmos.Core.ACPI.Reboot();
                 }
 
-            fs.Initialize(true);
-            Directory.CreateDirectory(@"0:\nonameos\");
-            Console.WriteLine("Creating System Files.....");
-            fs.CreateFile("0:\\nonameos\\System.txt");
-            fs.CreateFile("0:\\nonameos\\User.cs");
-            Console.Write("Please enter your username:");
-            string user = Console.ReadLine();
-            File.WriteAllText("0:\\nonameos\\User.cs", user);
+                fs.Initialize(true);
+                Directory.CreateDirectory(@"0:\nonameos\");
+                Console.WriteLine("Creating System Files.....");
+                fs.CreateFile("0:\\nonameos\\System.txt");
+                fs.CreateFile("0:\\nonameos\\User.cs");
+                Console.Write("Please enter your username:");
+                string user = Console.ReadLine();
+                File.WriteAllText("0:\\nonameos\\User.cs", user);
 
-                D:
-                    Console.Write("Add password ?(Y/N)");
-                    string passwd = Console.ReadLine();
-                    if (passwd == "Y" || passwd == "y")
-                    {
-                        fs.CreateFile("0:\\nonameos\\UserPassword.cs");
-                        Console.Write("Enter password for your user");
-                        string password = Console.ReadLine();
-                        File.WriteAllText(@"0:\nonameos\UserPassword.cs", password);
-                    }
-                    else if (passwd == "N" || passwd == "n")
-                    {
-
-                    }
-                    else
-                    {
-                        goto D;
-                    }
+            D:
+                Console.Write("Add password ?(Y/N)");
+                string passwd = Console.ReadLine();
+                if (passwd == "Y" || passwd == "y")
+                {
+                    fs.CreateFile("0:\\nonameos\\UserPassword.cs");
+                    Console.Write("Enter password for your user");
+                    string password = Console.ReadLine();
+                    File.WriteAllText(@"0:\nonameos\UserPassword.cs", password);
+                }
+                else if (passwd == "N" || passwd == "n")
+                {
 
                 }
-                Console.Write(curren_directory);
-                string input = Console.ReadLine();
-                if (input == "about")
+                else
                 {
+                    goto D;
+                }
+
+            }
+            Console.Write(curren_directory);
+            string input = Console.ReadLine();
+            if (input == "about")
+            {
 
                     Console.BackgroundColor = ConsoleColor.Red;
                     Console.WriteLine("thanks a lot to dontsmi1e from discord for code support");
@@ -234,24 +235,25 @@ namespace CosmosKernel1
                 }
             
             if (input == "help")
-                {
-                    Console.BackgroundColor = ConsoleColor.Gray;
+            {
+                Console.BackgroundColor = ConsoleColor.Gray;
 
-                    Console.WriteLine("about-about OS                                                                ");
-                    Console.WriteLine("shutdown-shutdown OS                                                          ");
-                    Console.WriteLine("reboot-reboot OS                                                              ");
-                    Console.WriteLine("dir - shows list of files                                                     ");
-                    Console.WriteLine("mkdir- makes directory                                                        ");
-                    Console.WriteLine("rmdir- deletes directory                                                      ");
-                    Console.WriteLine("clear - clears screen                                                         ");
-                    Console.WriteLine("cat - read from file (type with.txt ending)                                   ");
-                    Console.WriteLine("write-info to file(type file with . ending,then type on 2nd line info to file)");
-                    Console.WriteLine("rm - delete file (type with . ending)                                         ");
-                    Console.WriteLine("create - Create an file (type with . ending)                                  ");
-                    Console.WriteLine("install - formats disk and starts setup");
-                    Console.BackgroundColor = ConsoleColor.Blue;
-                }
-                if (input == "cd")
+                Console.WriteLine("about-about OS                                                                ");
+                Console.WriteLine("shutdown-shutdown OS                                                          ");
+                Console.WriteLine("reboot-reboot OS                                                              ");
+                Console.WriteLine("dir - shows list of files                                                     ");
+                Console.WriteLine("mkdir- makes directory                                                        ");
+                Console.WriteLine("rmdir- deletes directory                                                      ");
+                Console.WriteLine("clear - clears screen                                                         ");
+                Console.WriteLine("cat - read from file (type with.txt ending)                                   ");
+                Console.WriteLine("write-info to file(type file with . ending,then type on 2nd line info to file)");
+                Console.WriteLine("rm - delete file (type with . ending)                                         ");
+                Console.WriteLine("create - Create an file (type with . ending)                                  ");
+                Console.WriteLine("install - formats disk and starts setup                                       ");
+                Console.WriteLine("specs - shows PC specifications                                               ");
+                Console.BackgroundColor = ConsoleColor.Black;
+            }
+            if (input == "cd")
             {
                 current_directory = current_directory + input.Remove(3, 0);
             }
@@ -259,242 +261,153 @@ namespace CosmosKernel1
             {
                 current_directory = @"0:\";
             }
-                if (input == "reinstall")
-                {
-                    fs.Disks[0].CreatePartition(512);
-                    fs.Disks[0].FormatPartition(0, "FAT32", false);
-                    Sys.Power.Reboot();
-                }
-                if (input == "shutdown")
-                {
+            if (input == "install")
+            {
+                fs.Disks[0].CreatePartition(512);
+                fs.Disks[0].FormatPartition(0, "FAT32", false);
+                Sys.Power.Reboot();
+            }
+            if (input == "shutdown")
+            {
 
-                    Cosmos.Core.ACPI.Shutdown();
-                }
-                if (input == "reboot")
+                Cosmos.Core.ACPI.Shutdown();
+            }
+            if (input == "reboot")
+            {
+                Cosmos.System.Power.Reboot();
+
+            }
+
+            if (input.StartsWith("echo ")) { Console.WriteLine(input.Remove(0, 5)); }
+
+            if (input == "clear")
+            {
+                Console.Clear();
+            }
+            if (input == "dir")
+            {
+                var fs_type = fs.GetFileSystemType(@"0:\");
+                string[] filePaths = Directory.GetFiles(current_directory);
+                var drive = new DriveInfo("0");
+                Console.WriteLine("Volume in drive 0 is " + $"{drive.VolumeLabel}");
+                Console.WriteLine("Directory of " + current_directory);
+                Console.WriteLine("\n");
+                for (int i = 0; i < filePaths.Length; ++i)
                 {
-                    Cosmos.System.Power.Reboot();
+                    string path = filePaths[i];
+                    Console.WriteLine(System.IO.Path.GetFileName(path));
+                }
+                foreach (var d in System.IO.Directory.GetDirectories(current_directory))
+                {
+                    var dir = new DirectoryInfo(d);
+                    var dirName = dir.Name;
+
+                    Console.WriteLine(dirName + " <DIR>");
+                }
+                Console.WriteLine("\n");
+                Console.WriteLine("        " + $"{drive.TotalSize}" + " bytes");
+                Console.WriteLine("        " + $"{drive.AvailableFreeSpace}" + " bytes free");
+                Console.WriteLine("File System:" + fs_type);
+            }
+            if (input.StartsWith("mkdir"))
+            {
+                {
+                    try
+                    {
+                        Directory.CreateDirectory(@"0:\" + input.Remove(0, 6) + @"\");
+                    }
+                    catch (Exception e)
+                    {
+                        Console.WriteLine(e.ToString());
+                    }
+                }
+            }
+            if (input == "error")
+            {
+                Kernel.crash("test");
+            }
+            if (input.StartsWith("rmdir"))
+            {
+                {
+                    try
+                    {
+                        Directory.Delete(@"0:\" + input.Remove(0, 6) + @"\");
+                    }
+                    catch (Exception e)
+                    {
+                        Console.WriteLine(e.ToString());
+                    }
 
                 }
+            }
+            if (input.StartsWith("cat"))
+            {
+                {
+                    try
+                    {
+                        Console.WriteLine(File.ReadAllText(@"0:\" + input.Remove(0, 4)));
+                    }
+                    catch (Exception e)
+                    {
+                        Console.WriteLine(e.ToString());
+                    }
+                }
+            }
+            if (input.StartsWith("write"))
+            {
+                string write = Console.ReadLine();
+                {
+                    try
+                    {
+                        File.WriteAllText(@"0:\" + input.Remove(0, 6), write);
+                    }
+                    catch (Exception e)
+                    {
+                        Console.WriteLine(e.ToString());
+                    }
+                }
+            }
+            if (input.StartsWith("rm"))
+            {
+                if (input.EndsWith(" "))
+                {
+                    try
+                    {
+                        File.Delete(@"0:\" + input.Remove(0, 6));
+                    }
+                    catch (Exception e)
+                    {
+                        Console.WriteLine(e.ToString());
+                    }
 
-                if (input.StartsWith("echo ")) { Console.WriteLine(input.Remove(0, 5)); }
+                }
+            }
+            if (input.StartsWith("create"))
+            {
+                {
+                    try
+                    {
+                        var file_stream = File.Create(@"0:\" + input.Remove(0, 7));
+                    }
+                    catch (Exception e)
+                    {
+                        Console.WriteLine(e.ToString());
+                    }
 
-                if (input == "clear")
-                {
-                    Console.Clear();
                 }
-                if (input == "dir")
-                {
-                    var fs_type = fs.GetFileSystemType(@"0:\");
-                    string[] filePaths = Directory.GetFiles(current_directory);
-                    var drive = new DriveInfo("0");
-                    Console.WriteLine("Volume in drive 0 is " + $"{drive.VolumeLabel}");
-                    Console.WriteLine("Directory of " + current_directory);
-                    Console.WriteLine("\n");
-                    for (int i = 0; i < filePaths.Length; ++i)
-                    {
-                        string path = filePaths[i];
-                        Console.WriteLine(System.IO.Path.GetFileName(path));
-                    }
-                    foreach (var d in System.IO.Directory.GetDirectories(current_directory))
-                    {
-                        var dir = new DirectoryInfo(d);
-                        var dirName = dir.Name;
-
-                        Console.WriteLine(dirName + " <DIR>");
-                    }
-                    Console.WriteLine("\n");
-                    Console.WriteLine("        " + $"{drive.TotalSize}" + " bytes");
-                    Console.WriteLine("        " + $"{drive.AvailableFreeSpace}" + " bytes free");
-                    Console.WriteLine("File System:" + fs_type);
-                }
-                if (input.StartsWith("mkdir"))
-                {
-                    if (input.EndsWith(" "))
-                    {
-                        Kernel.crash("not a directory");
-                    }
-                    else
-                    {
-                        try
-                        {
-                            Directory.CreateDirectory(@"0:\" + input.Remove(0, 6) + @"\");
-                        }
-                        catch (Exception e)
-                        {
-                            Console.WriteLine(e.ToString());
-                        }
-                    }
-                }
-                if (input == "error")
-                {
-                    Kernel.crash("test");
-                }
-                if (input.StartsWith("rmdir"))
-                {
-                    if (input.EndsWith(" "))
-                    {
-                        Kernel.crash("not a directory");
-                    }
-                    else
-                    {
-                        try
-                        {
-                            Directory.Delete(@"0:\" + input.Remove(0, 6) + @"\");
-                        }
-                        catch (Exception e)
-                        {
-                            Console.WriteLine(e.ToString());
-                        }
-
-                    }
-                }
-                if (input.StartsWith("cat"))
-                {
-                    if (input.EndsWith(" "))
-                    {
-                        Console.BackgroundColor = ConsoleColor.Red;
-                        Console.Clear();
-                        Console.ForegroundColor = ConsoleColor.Gray;
-                        Console.WriteLine("                             NONAMEOS CRASH REPORTER");
-                        Console.WriteLine("--------------------------------------------------------------------------------");
-                        Console.WriteLine("  _____    ");
-                        Console.WriteLine(" |  __ \\ _ ");
-                        Console.WriteLine(" | |  | (_)");
-                        Console.WriteLine(" | |  | |  ");
-                        Console.WriteLine(" | |__| |_ ");
-                        Console.WriteLine(" |_____/(_)");
-                        Console.WriteLine("           ");
-                        Console.WriteLine("           ");
-                        Console.WriteLine("           ");
-                        Console.WriteLine("NoNameOS Milestone 2 has encountered an critical error that cant solve. System will restart shortly.Error:");
-                        System.Threading.Thread.Sleep(5000);
-                        Kernel.error("not a file");
-                        System.Threading.Thread.Sleep(500);
-                        Cosmos.System.Power.Shutdown();
-                    }
-                    else
-                    {
-                        try
-                        {
-                            Console.WriteLine(File.ReadAllText(@"0:\" + input.Remove(0, 4)));
-                        }
-                        catch (Exception e)
-                        {
-                            Console.WriteLine(e.ToString());
-                        }
-                    }
-                }
-                if (input.StartsWith("write"))
-                {
-                    string write = Console.ReadLine();
-                    if (input.EndsWith(" "))
-                    {
-                        Console.BackgroundColor = ConsoleColor.Red;
-                        Console.Clear();
-                        Console.ForegroundColor = ConsoleColor.Gray;
-                        Console.WriteLine("                             NONAMEOS CRASH REPORTER");
-                        Console.WriteLine("--------------------------------------------------------------------------------");
-                        Console.WriteLine("  _____    ");
-                        Console.WriteLine(" |  __ \\ _ ");
-                        Console.WriteLine(" | |  | (_)");
-                        Console.WriteLine(" | |  | |  ");
-                        Console.WriteLine(" | |__| |_ ");
-                        Console.WriteLine(" |_____/(_)");
-                        Console.WriteLine("           ");
-                        Console.WriteLine("           ");
-                        Console.WriteLine("           ");
-                        Console.WriteLine("NoNameOS Milestone 2 has encountered an critical error that cant solve. System will restart shortly.Error:");
-                        System.Threading.Thread.Sleep(5000);
-                        Kernel.error("not a file");
-                        System.Threading.Thread.Sleep(500);
-                        Cosmos.System.Power.Shutdown();
-                    }
-                    else
-                    {
-                        try
-                        {
-                            File.WriteAllText(@"0:\" + input.Remove(0, 6), write);
-                        }
-                        catch (Exception e)
-                        {
-                            Console.WriteLine(e.ToString());
-                        }
-                    }
-                }
-                if (input.StartsWith("rm"))
-                {
-                    if (input.EndsWith(" "))
-                    {
-                        Console.BackgroundColor = ConsoleColor.Red;
-                        Console.Clear();
-                        Console.ForegroundColor = ConsoleColor.Gray;
-                        Console.WriteLine("                             NONAMEOS CRASH REPORTER");
-                        Console.WriteLine("--------------------------------------------------------------------------------");
-                        Console.WriteLine("  _____    ");
-                        Console.WriteLine(" |  __ \\ _ ");
-                        Console.WriteLine(" | |  | (_)");
-                        Console.WriteLine(" | |  | |  ");
-                        Console.WriteLine(" | |__| |_ ");
-                        Console.WriteLine(" |_____/(_)");
-                        Console.WriteLine("           ");
-                        Console.WriteLine("           ");
-                        Console.WriteLine("           ");
-                        Console.WriteLine("NoNameOS Milestone 2 has encountered an critical error that cant solve. System will restart shortly.Error:");
-                        System.Threading.Thread.Sleep(5000);
-                        Kernel.error("not a directory");
-                        System.Threading.Thread.Sleep(500);
-                        Cosmos.System.Power.Shutdown();
-                    }
-                    else
-                    {
-                        try
-                        {
-                            File.Delete(@"0:\" + input.Remove(0, 6));
-                        }
-                        catch (Exception e)
-                        {
-                            Console.WriteLine(e.ToString());
-                        }
-
-                    }
-                }
-                if (input.StartsWith("create"))
-                {
-                    if (input.EndsWith(" "))
-                    {
-                        Console.BackgroundColor = ConsoleColor.Red;
-                        Console.Clear();
-                        Console.ForegroundColor = ConsoleColor.Gray;
-                        Console.WriteLine("                             NONAMEOS CRASH REPORTER");
-                        Console.WriteLine("--------------------------------------------------------------------------------");
-                        Console.WriteLine("  _____    ");
-                        Console.WriteLine(" |  __ \\ _ ");
-                        Console.WriteLine(" | |  | (_)");
-                        Console.WriteLine(" | |  | |  ");
-                        Console.WriteLine(" | |__| |_ ");
-                        Console.WriteLine(" |_____/(_)");
-                        Console.WriteLine("           ");
-                        Console.WriteLine("           ");
-                        Console.WriteLine("           ");
-                        Console.WriteLine("NoNameOS Milestone 2 has encountered an critical error that cant solve. System will restart shortly.Error:");
-                        System.Threading.Thread.Sleep(5000);
-                        Kernel.error("not a directory");
-                        System.Threading.Thread.Sleep(500);
-                        Cosmos.System.Power.Shutdown();
-                    }
-                    else
-                    {
-                        try
-                        {
-                            var file_stream = File.Create(@"0:\" + input.Remove(0, 7));
-                        }
-                        catch (Exception e)
-                        {
-                            Console.WriteLine(e.ToString());
-                        }
-
-                    }
-                }
+            }
+            if (input == ("specs"))
+            {
+                var fs_type = fs.GetFileSystemType(@"0:\");
+                var drive = new DriveInfo("0");
+                Console.Write("CPU:");
+                Console.WriteLine(Cosmos.Core.CPU.GetCPUBrandString());
+                Console.WriteLine("Drive:");
+                Console.WriteLine("        " + $"{drive.TotalSize}" + " bytes");
+                Console.WriteLine("        " + $"{drive.AvailableFreeSpace}" + " bytes free");
+                Console.WriteLine("File System:" + fs_type);
+                Console.WriteLine("RAM:"+GCImplementation.GetAvailableRAM()+"MB(Avaliable)");
+            }
             }
         }
     }
