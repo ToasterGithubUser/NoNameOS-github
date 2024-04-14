@@ -98,35 +98,11 @@ namespace CosmosKernel1
             Console.BackgroundColor = ConsoleColor.Black;
             
             
-            Cosmos.Core.CPU.GetCPUBrandString();
             System.Threading.Thread.Sleep(1000);
            
             Console.BackgroundColor = ConsoleColor.Black;
-            Console.Write("CPU:");
-            Console.Write(Cosmos.Core.CPU.GetCPUBrandString());
-            Console.ForegroundColor = ConsoleColor.Green;
-            if (! (Cosmos.Core.CPU.GetCPUBrandString() == ""))
-            {
-                Console.Write("[OK!]");
-            }
-            else
-            {
-                Console.ForegroundColor= ConsoleColor.Red;
-                Console.Write("[FAIL!]");
-            }
-            Console.ForegroundColor = ConsoleColor.White;
-            Console.WriteLine("  ");
-            Console.Write("RAM:");
-            Console.Write(GCImplementation.GetAvailableRAM());
-            Console.ForegroundColor = ConsoleColor.Green;
-            Console.Write("[OK!]");
-            Console.ForegroundColor = ConsoleColor.White;
-            Console.BackgroundColor = ConsoleColor.Black;
-       
-            Console.WriteLine("  ");
             Console.BackgroundColor = ConsoleColor.Red;
             Console.WriteLine("Shell Started. Type help for help,thanks a lot to dontsmi1e for code support");
-            Cosmos.Core.CPU.GetCPUBrandString();
             Console.BackgroundColor = ConsoleColor.Blue;
             current_directory = @"0:\";
             
