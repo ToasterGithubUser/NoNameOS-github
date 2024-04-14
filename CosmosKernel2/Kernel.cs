@@ -229,6 +229,7 @@ namespace CosmosKernel1
                     Console.WriteLine("Milestone 2 adds such thing as: File system and commands to interact with it!");
                     Console.WriteLine("Milestone 3 From now milestone 3 adds login screen and setup");
                     Console.WriteLine("Milestone 3.1 :The Git Repo Update! Adds an GitHub repo.");
+                    Console.WriteLine("Milestone 3.5 :Optimizations Update!");
                     Console.BackgroundColor = ConsoleColor.Blue;
                 }
             
