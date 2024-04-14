@@ -5,6 +5,6 @@ BRANCH INTRODUCTION:
 
 master- stable, fully working source code.
 
-3.5-milestone-test: optimizations
+3.5-milestone-test: optimizations, was merged with 'master; branch. 
 
 GUI-test:based on '3.5-milestone-test', CGS(Previously PrismAPI.Graphics) testing
