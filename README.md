@@ -14,6 +14,8 @@ master- stable, fully working source code.
 
 3.5-milestone-test: optimizations, was merged with 'master; branch. 
 
-GUI-test:based on '3.5-milestone-test', CGS(Previously PrismAPI.Graphics) testing
+GUI-test:based on '3.5-milestone-test', CGS(Previously PrismAPI.Graphics) testing.
+
+project-delta:LiveCD tests.
 > [!NOTE]
 > You need DevKit to compile OS.
