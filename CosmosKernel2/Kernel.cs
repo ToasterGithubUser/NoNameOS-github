@@ -15,6 +15,11 @@ using Cosmos.HAL.Drivers;
 using Cosmos.HAL;
 using System.Buffers;
 using Cosmos.Core;
+// NOTE: Proper use of Panic
+///catch (Exception e)
+///{
+///    crash(e.ToString());
+///}
 
 
 namespace CosmosKernel1
@@ -46,12 +51,7 @@ namespace CosmosKernel1
             }
 
         }
-        public static void error(string msg)
-        {
-            Console.ForegroundColor = ConsoleColor.Gray;
-            Console.WriteLine(msg);
-            Console.BackgroundColor = ConsoleColor.Red;
-        }
+
         public bool IsMBR { get; }
 
 
@@ -61,16 +61,26 @@ namespace CosmosKernel1
                 Console.BackgroundColor = ConsoleColor.Black;
                 
                 Console.ForegroundColor = ConsoleColor.Gray;
-                Console.WriteLine("                             NONAMEOS CRASH REPORTER");
+                Console.WriteLine("=====================================================================");
+                Console.WriteLine("Aw snap!");
+                Console.ForegroundColor= ConsoleColor.Red;
                 Console.WriteLine("PANIC!");
+                Console.ForegroundColor = ConsoleColor.Gray;
+                Console.WriteLine("NoNameOS Milestone 3 has encountered an critical error that cant solve.Possible solutions:");
+                Console.WriteLine("1.Try to restart your device"); 
+                Console.WriteLine("2.If problem still persists,email bug ( aworldman1000@gmail.com ) or create new issue on github");
+                Console.WriteLine("=====================================================================");
                 Console.Write(Cosmos.Core.CPU.GetCPUBrandString());
                 Console.Write("_");
                 Console.Write(Cosmos.Core.CPU.GetCPUVendorName());
                 Console.Write("_");
-                Console.WriteLine(Cosmos.Core.CPU.GetCPUUptime());
-                Console.WriteLine("NoNameOS Milestone 3 has encountered an critical error that cant solve.Error:");
+                Console.WriteLine("UpTime " + Cosmos.Core.CPU.GetCPUUptime());
+                Console.WriteLine("EBP "+Cosmos.Core.CPU.GetEBPValue());
+                Console.WriteLine("StackStart "+CPU.GetStackStart());
+                CPU.Halt();
+                Console.WriteLine(CPU.);
                 System.Threading.Thread.Sleep(5000);
-                Kernel.error(reason);
+                Console.WriteLine(reason);
                 System.Threading.Thread.Sleep(500);
                 
             }
@@ -225,7 +235,7 @@ namespace CosmosKernel1
 
                     Console.BackgroundColor = ConsoleColor.Red;
                     Console.WriteLine("thanks a lot to dontsmi1e from discord for code support");
-                    Console.WriteLine("Welcome to NoNameOS 0.1.7 Pre-alpha! build 230: Milestone 3.5.Codename'Mirage'");
+                    Console.WriteLine("Welcome to NoNameOS 0.1.7 Pre-alpha! build 234: Milestone 3.5.Codename'Mirage'");
                     Console.WriteLine("Milestone 2 adds such thing as: File system and commands to interact with it!");
                     Console.WriteLine("Milestone 3 From now milestone 3 adds login screen and setup");
                     Console.WriteLine("Milestone 3.1 :The Git Repo Update! Adds an GitHub repo.");
@@ -399,11 +409,12 @@ namespace CosmosKernel1
             {
                 var fs_type = fs.GetFileSystemType(@"0:\");
                 var drive = new DriveInfo("0");
+                Console.WriteLine("OS:");
                 Console.Write("CPU:");
                 Console.WriteLine(Cosmos.Core.CPU.GetCPUBrandString());
                 Console.WriteLine("Drive:");
-                Console.WriteLine("        " + $"{drive.TotalSize}" + " bytes");
-                Console.WriteLine("        " + $"{drive.AvailableFreeSpace}" + " bytes free");
+                Console.WriteLine("     " + $"{drive.TotalSize}" + " bytes");
+                Console.WriteLine("     " + $"{drive.AvailableFreeSpace}" + " bytes free");
                 Console.WriteLine("File System:" + fs_type);
                 Console.WriteLine("RAM:"+GCImplementation.GetAvailableRAM()+"MB(Avaliable)");
             }
