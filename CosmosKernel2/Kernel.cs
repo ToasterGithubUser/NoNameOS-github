@@ -15,6 +15,7 @@ using Cosmos.HAL.Drivers;
 using Cosmos.HAL;
 using System.Buffers;
 using Cosmos.Core;
+
 using Cosmos.System;
 using Console = System.Console;
 using System.Linq.Expressions;
@@ -23,6 +24,14 @@ using Cosmos.Core.Memory;
 using SoundTest;
 using Youtube_tut;
 using SoundTest.Applications.Task_Scheduler;
+// NOTE: Proper use of Panic
+///catch (Exception e)
+///{
+///    crash(e.ToString());
+///}
+
+
+
 namespace CosmosKernel1
 {
 
@@ -64,12 +73,7 @@ namespace CosmosKernel1
             }
 
         }
-        public static void error(string msg)
-        {
-            Console.ForegroundColor = ConsoleColor.Gray;
-            Console.WriteLine(msg);
-            Console.BackgroundColor = ConsoleColor.Red;
-        }
+
         public bool IsMBR { get; }
 
 
@@ -80,16 +84,26 @@ namespace CosmosKernel1
                 Console.BackgroundColor = ConsoleColor.Black;
                 
                 Console.ForegroundColor = ConsoleColor.Gray;
-                Console.WriteLine("                             NONAMEOS CRASH REPORTER");
+                Console.WriteLine("=====================================================================");
+                Console.WriteLine("Aw snap!");
+                Console.ForegroundColor= ConsoleColor.Red;
                 Console.WriteLine("PANIC!");
+                Console.ForegroundColor = ConsoleColor.Gray;
+                Console.WriteLine("NoNameOS Milestone 3 has encountered an critical error that cant solve.Possible solutions:");
+                Console.WriteLine("1.Try to restart your device"); 
+                Console.WriteLine("2.If problem still persists,email bug ( aworldman1000@gmail.com ) or create new issue on github");
+                Console.WriteLine("=====================================================================");
                 Console.Write(Cosmos.Core.CPU.GetCPUBrandString());
                 Console.Write("_");
                 Console.Write(Cosmos.Core.CPU.GetCPUVendorName());
                 Console.Write("_");
-                Console.WriteLine(Cosmos.Core.CPU.GetCPUUptime());
-                Console.WriteLine("NoNameOS Milestone 3 has encountered an critical error that cant solve.Error:");
+                Console.WriteLine("UpTime " + Cosmos.Core.CPU.GetCPUUptime());
+                Console.WriteLine("EBP "+Cosmos.Core.CPU.GetEBPValue());
+                Console.WriteLine("StackStart "+CPU.GetStackStart());
+                CPU.Halt();
+                Console.WriteLine(CPU.);
                 System.Threading.Thread.Sleep(5000);
-                Kernel.error(reason);
+                Console.WriteLine(reason);
                 System.Threading.Thread.Sleep(500);
 
             }
@@ -171,7 +185,6 @@ namespace CosmosKernel1
             Console.BackgroundColor = ConsoleColor.Red;
             Console.WriteLine("Shell Started. Type help for help,thanks a lot to dontsmi1e for code support");
             Console.BackgroundColor = ConsoleColor.Green;
-            Console.WriteLine("Thanks for using testing branch!");
             Cosmos.Core.CPU.GetCPUBrandString();
             Console.BackgroundColor = ConsoleColor.Black;
             if (File.Exists("0:\\nonameos\\User.cs"))
@@ -232,13 +245,56 @@ namespace CosmosKernel1
                 Menu.Menu_mgr();
                 //And that's it. Making a button is the same, but you don't have to do the same thing backwords
                 ImprovedVBE.DrawImageAlpha(curs, (int)MouseManager.X, (int)MouseManager.Y);
-
                 Heap.Collect();
                 //This will help running your OS much longer
 
                 ImprovedVBE.display(canvas);
                 ImprovedVBE._DrawACSIIString((MouseManager.X + " " + MouseManager.Y), 1920, 10, 16777215);
+                    Console.BackgroundColor = ConsoleColor.Red;
+                    Console.WriteLine("thanks a lot to dontsmi1e from discord for code support");
+                    Console.WriteLine("Welcome to NoNameOS 0.1.7 Pre-alpha! build 234: Milestone 3.5.Codename'Mirage'");
+                    Console.WriteLine("Milestone 2 adds such thing as: File system and commands to interact with it!");
+                    Console.WriteLine("Milestone 3 From now milestone 3 adds login screen and setup");
+                    Console.WriteLine("Milestone 3.1 :The Git Repo Update! Adds an GitHub repo.");
+                    Console.WriteLine("Milestone 3.5 :Optimizations Update!");
+                    Console.BackgroundColor = ConsoleColor.Blue;
+                }
+            
+            if (input == "help")
+            {
+                Console.BackgroundColor = ConsoleColor.Gray;
 
+                Console.WriteLine("about-about OS                                                                ");
+                Console.WriteLine("shutdown-shutdown OS                                                          ");
+                Console.WriteLine("reboot-reboot OS                                                              ");
+                Console.WriteLine("dir - shows list of files                                                     ");
+                Console.WriteLine("mkdir- makes directory                                                        ");
+                Console.WriteLine("rmdir- deletes directory                                                      ");
+                Console.WriteLine("clear - clears screen                                                         ");
+                Console.WriteLine("cat - read from file (type with.txt ending)                                   ");
+                Console.WriteLine("write-info to file(type file with . ending,then type on 2nd line info to file)");
+                Console.WriteLine("rm - delete file (type with . ending)                                         ");
+                Console.WriteLine("create - Create an file (type with . ending)                                  ");
+                Console.WriteLine("install - formats disk and starts setup                                       ");
+                Console.WriteLine("specs - shows PC specifications                                               ");
+                Console.BackgroundColor = ConsoleColor.Black;
+            }
+            if (input == "cd")
+            {
+                current_directory = current_directory + input.Remove(3, 0);
+            }
+            if (input == "cd .. ")
+            {
+                current_directory = @"0:\";
+            }
+            if (input == "install")
+            {
+                fs.Disks[0].CreatePartition(512);
+                fs.Disks[0].FormatPartition(0, "FAT32", false);
+                Sys.Power.Reboot();
+            }
+            if (input == "shutdown")
+            {
                 canvas.Display();
             }
             else
@@ -484,6 +540,20 @@ namespace CosmosKernel1
                     Console.WriteLine("File System:" + fs_type);
                     Console.WriteLine("RAM:" + GCImplementation.GetAvailableRAM() + "MB(Avaliable)");
                 }
+            }
+            if (input == ("specs"))
+            {
+                var fs_type = fs.GetFileSystemType(@"0:\");
+                var drive = new DriveInfo("0");
+                Console.WriteLine("OS:");
+                Console.Write("CPU:");
+                Console.WriteLine(Cosmos.Core.CPU.GetCPUBrandString());
+                Console.WriteLine("Drive:");
+                Console.WriteLine("     " + $"{drive.TotalSize}" + " bytes");
+                Console.WriteLine("     " + $"{drive.AvailableFreeSpace}" + " bytes free");
+                Console.WriteLine("File System:" + fs_type);
+                Console.WriteLine("RAM:"+GCImplementation.GetAvailableRAM()+"MB(Avaliable)");
+            }
             }
         }
     }
