@@ -28,7 +28,30 @@
         <IgnoreDebugStubAttribute>True</IgnoreDebugStubAttribute>
         <ImplicitUsings>disable</ImplicitUsings>
         <AllowUnsafeBlocks>True</AllowUnsafeBlocks>
+        <CompileVBEMultiboot>False</CompileVBEMultiboot>
     </PropertyGroup>
+
+    <ItemGroup>
+      <None Remove="Calculator\Calculator.bmp" />
+      <None Remove="canvas.bmp" />
+      <None Remove="cursor.bmp" />
+      <None Remove="Menu.bmp" />
+      <None Remove="test.bmp" />
+      <None Remove="Untitled.bmp" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <EmbeddedResource Include="Calculator\Calculator.bmp" />
+      <EmbeddedResource Include="canvas.bmp" />
+      <EmbeddedResource Include="cursor.bmp" />
+      <EmbeddedResource Include="Menu.bmp" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <EmbeddedResource Include="Untitled.bmp">
+        <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+      </EmbeddedResource>
+    </ItemGroup>
 
     <ItemGroup>
         <PackageReference Include="Cosmos.Build" Version="0-*" NoWarn="NU1604" />
@@ -36,6 +59,10 @@
         <PackageReference Include="Cosmos.Plugs" Version="0.1.0-localbuild20240128025159" />
         <PackageReference Include="Cosmos.System2" Version="0-*" NoWarn="NU1604" />
         <PackageReference Include="PrismAPI" Version="1.0.3" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <Page Include="test.bmp" />
     </ItemGroup>
 
 </Project>

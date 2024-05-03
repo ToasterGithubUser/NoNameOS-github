@@ -18,13 +18,29 @@ using Cosmos.Core;
 using Cosmos.System;
 using Console = System.Console;
 using System.Linq.Expressions;
+using IL2CPU.API.Attribs;
+using Cosmos.Core.Memory;
+using SoundTest;
+using Youtube_tut;
+using SoundTest.Applications.Task_Scheduler;
 namespace CosmosKernel1
 {
 
 
     public class Kernel : Sys.Kernel
     {
-        Canvas canvas;
+        public static Canvas canvas;// = new Canvas(new Mode(1920, 1080, ColorDepth.ColorDepth32)); //Set the graphic mode: 1920 -> width 1080 -> height
+        //set the bitmap you want to be displayed as Build action: Embedded resource
+        [ManifestResourceStream(ResourceName = "CosmosKernel2.cursor.bmp")] public static byte[] cursor;
+        public static Bitmap curs = new Bitmap(cursor);
+        //defines the cursor image
+        //Important: If you want to draw a bitmap make sure that it is in 32bpp
+        
+
+        public static int bmp_x = 50;
+        public static int bmp_y = 50;
+        public static bool movable = false;
+
         public static VGAScreen VScreen = new VGAScreen();
 
         public void FormatDisk(int index, string format, bool quick = true) { }
@@ -81,8 +97,12 @@ namespace CosmosKernel1
 
         protected override void BeforeRun()
         {
-            MouseManager.ScreenWidth = 640;
-            MouseManager.ScreenHeight = 480;
+            MouseManager.ScreenWidth = 1920;
+            MouseManager.ScreenHeight = 1080;
+            
+            //Set the cursor to the middle of the screen
+            MouseManager.X = 1920 / 2;
+            MouseManager.Y = 1080 / 2;
             Sys.FileSystem.VFS.VFSManager.RegisterVFS(fs, true, true);
             foreach (Disk disk in fs.GetDisks())
             {
@@ -99,7 +119,7 @@ namespace CosmosKernel1
             Console.BackgroundColor = ConsoleColor.Black;
             Console.ForegroundColor = ConsoleColor.White;
             Console.BackgroundColor = ConsoleColor.Yellow;
-            Console.WriteLine("Warning! this shell is for PROFFESIONAL USE ONLY.");
+            Console.WriteLine("Warning! command line is for PROFFESIONAL USE ONLY.");
             Console.WriteLine("Do you want to go in Graphics Mode? (y/n)");
             string inpduta = Console.ReadLine();
             if (inpduta == "Y" || inpduta == "y")
@@ -109,12 +129,7 @@ namespace CosmosKernel1
            To not specify the Mode and pick the best one, use:
            canvas = FullScreenCanvas.GetFullScreenCanvas();
            */
-                MouseManager.ScreenWidth = 800;
-                MouseManager.ScreenHeight = 600;
-                canvas = FullScreenCanvas.GetFullScreenCanvas(new Mode(800, 600, ColorDepth.ColorDepth32));
-
-                canvas.Clear(Color.Blue);
-
+                canvas = FullScreenCanvas.GetFullScreenCanvas(new Mode(1920, 1080, ColorDepth.ColorDepth32));
                 // This will clear the canvas with the specified color.
                 a = "graphics";
             }
@@ -205,7 +220,26 @@ namespace CosmosKernel1
             current_directory = @"0:\";
             if (a == "graphics")
             {
-                
+
+
+                //16777215 is white
+                ImprovedVBE.clear(16777215);
+
+                //init
+                Task_Manager.Task_manager();
+
+                //Now lets make a menu
+                Menu.Menu_mgr();
+                //And that's it. Making a button is the same, but you don't have to do the same thing backwords
+                ImprovedVBE.DrawImageAlpha(curs, (int)MouseManager.X, (int)MouseManager.Y);
+
+                Heap.Collect();
+                //This will help running your OS much longer
+
+                ImprovedVBE.display(canvas);
+                ImprovedVBE._DrawACSIIString((MouseManager.X + " " + MouseManager.Y), 1920, 10, 16777215);
+
+                canvas.Display();
             }
             else
             {
@@ -257,7 +291,7 @@ namespace CosmosKernel1
 
                     Console.BackgroundColor = ConsoleColor.Red;
                     Console.WriteLine("thanks a lot to dontsmi1e from discord for code support");
-                    Console.WriteLine("Welcome to NoNameOS 0.1.7 Pre-alpha! build 268: Milestone 4 Codename'Aero'");
+                    Console.WriteLine("Welcome to NoNameOS 0.1.7 Pre-alpha! build 282: Milestone 4 Codename'Aero'");
                     Console.WriteLine("Milestone 2 adds such thing as: File system and commands to interact with it!");
                     Console.WriteLine("Milestone 3 From now milestone 3 adds login screen and setup");
                     Console.WriteLine("Milestone 3.1 :The Git Repo Update! Adds an GitHub repo.");
