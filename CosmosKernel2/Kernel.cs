@@ -101,7 +101,6 @@ namespace CosmosKernel1
                 Console.WriteLine("EBP "+Cosmos.Core.CPU.GetEBPValue());
                 Console.WriteLine("StackStart "+CPU.GetStackStart());
                 CPU.Halt();
-                Console.WriteLine(CPU.);
                 System.Threading.Thread.Sleep(5000);
                 Console.WriteLine(reason);
                 System.Threading.Thread.Sleep(500);
@@ -187,15 +186,15 @@ namespace CosmosKernel1
             Console.BackgroundColor = ConsoleColor.Green;
             Cosmos.Core.CPU.GetCPUBrandString();
             Console.BackgroundColor = ConsoleColor.Black;
-            if (File.Exists("0:\\nonameos\\User.cs"))
+            if (File.Exists("0:\\nonameos\\User.txt"))
             {
-                Console.WriteLine("Hello," + File.ReadAllText("0:\\nonameos\\User.cs"));
+                Console.WriteLine("Hello," + File.ReadAllText("0:\\nonameos\\User.txt"));
             }
             current_directory = @"0:\";
-            if (!File.Exists(@"0:\nonameos\User.cs"))
-                curren_directory = @"0:\";
+            if (!File.Exists(@"0:\nonameos\User.txt"))
+                curren_directory = current_directory;
             else
-                curren_directory = (File.ReadAllText("0:\\nonameos\\User.cs") + "$" + current_directory);
+                curren_directory = (File.ReadAllText("0:\\nonameos\\User.txt") + "$" + current_directory);
             if (File.Exists("0:\\nonameos\\UserPassword.cs"))
             {
 
