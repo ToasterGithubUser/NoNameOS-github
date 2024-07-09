@@ -23,7 +23,11 @@ using Cosmos.Core.Memory;
 using SoundTest;
 using Youtube_tut;
 using SoundTest.Applications.Task_Scheduler;
+
+using static CosmosKernel1.PanicHandler;
+
 using Cosmos.System.Graphics.Fonts;
+
 // NOTE: Proper use of Panic
 ///catch (Exception e)
 ///{
@@ -73,6 +77,7 @@ namespace CosmosKernel1
         }
 
         public bool IsMBR { get; }
+
 
 
 
@@ -221,10 +226,13 @@ namespace CosmosKernel1
                 canvas.DrawString((MouseManager.X + "," + MouseManager.Y), PCScreenFont.Default, Color.Black, 1700, 10);
                 canvas.Display();
                 ImprovedVBE.display(canvas);
+
                 ImprovedVBE._DrawACSIIString((MouseManager.X + " " + MouseManager.Y), 1920, 10, 16777215);
 
                 canvas.Display();
             }
+
+
             else
             {
                 Console.BackgroundColor = ConsoleColor.Black;
@@ -286,6 +294,7 @@ namespace CosmosKernel1
                         break;
                     case "help":
                         Console.BackgroundColor = ConsoleColor.Gray;
+
 
                         Console.WriteLine("about-about OS                                                                ");
                         Console.WriteLine("shutdown-shutdown OS                                                          ");
@@ -428,6 +437,7 @@ namespace CosmosKernel1
                                 Console.WriteLine(e.ToString());
                             }
 
+
                         }
                         break;
                     case { } when input.StartsWith("create"):
@@ -448,6 +458,7 @@ namespace CosmosKernel1
                         break;
 
                 }
+
 
             }
         }
