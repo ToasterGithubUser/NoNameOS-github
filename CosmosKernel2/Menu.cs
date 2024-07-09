@@ -29,7 +29,7 @@ namespace Youtube_tut
             ImprovedVBE.DrawFilledRectangle(7895160, 0, 1030, 1920, 50);//This represents the taskbar
             //Start menu
             ImprovedVBE.DrawFilledRectangle(16777215, 5, 1035, 80, 40);//The 16777215 number means the white color in int
-
+            ImprovedVBE._DrawACSIIString((MouseManager.X + " " + MouseManager.Y), 1920, 10, 16777215);
             //Now lets make the basic click for it
             if (MouseManager.MouseState == MouseState.Left)
             {
@@ -66,7 +66,7 @@ namespace Youtube_tut
                         menu_opened = false;
                         //Whith this, after ou clicked on an app, it will close your menu automaticly
                     }
-                    if (MouseManager.X > 0 && MouseManager.X < 200 && MouseManager.Y > 54 && MouseManager.Y < 120)
+                    if (MouseManager.X > 160 && MouseManager.X < 194 && MouseManager.Y > 1012 && MouseManager.Y < 1026)
                     {
                         Cosmos.Core.ACPI.Shutdown();
                     }

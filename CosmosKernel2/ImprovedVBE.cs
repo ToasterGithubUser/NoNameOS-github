@@ -17,6 +17,8 @@ namespace SoundTest
 {
     public class ImprovedVBE
     {
+        //GUI framework, thanks crystal development for helping
+
         //public static byte[] frame_buffer;
         //public static Bitmap frame = new Bitmap(frame_buffer);
 

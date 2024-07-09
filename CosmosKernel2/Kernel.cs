@@ -23,7 +23,7 @@ using Cosmos.Core.Memory;
 using SoundTest;
 using Youtube_tut;
 using SoundTest.Applications.Task_Scheduler;
-using static CosmosKernel1.PanicHandler;
+using Cosmos.System.Graphics.Fonts;
 // NOTE: Proper use of Panic
 ///catch (Exception e)
 ///{
@@ -218,7 +218,8 @@ namespace CosmosKernel1
 
                 Heap.Collect();
                 //This will help running your OS much longer
-
+                canvas.DrawString((MouseManager.X + "," + MouseManager.Y), PCScreenFont.Default, Color.Black, 1700, 10);
+                canvas.Display();
                 ImprovedVBE.display(canvas);
                 ImprovedVBE._DrawACSIIString((MouseManager.X + " " + MouseManager.Y), 1920, 10, 16777215);
 
@@ -230,35 +231,35 @@ namespace CosmosKernel1
                 if (!File.Exists(@"0:\nonameos\System.txt"))
                 {
 
-                    if (fs.Disks[0].Partitions.Count < 1)
-                    {
-                        Console.WriteLine("Welcome to NoNameOS! We're doing final touches...");
-                        fs.Disks[0].CreatePartition(512);
-                        fs.Disks[0].FormatPartition(0, "FAT32", false);
-                        Cosmos.Core.ACPI.Reboot();
-                    }
+                if (fs.Disks[0].Partitions.Count < 1)
+                {
+                    Console.WriteLine("Welcome to NoNameOS! We're doing final touches...");
+                    fs.Disks[0].CreatePartition(512);
+                    fs.Disks[0].FormatPartition(0, "FAT32", false);
+                    Cosmos.Core.ACPI.Reboot();
+                }
 
-                    fs.Initialize(true);
-                    Directory.CreateDirectory(@"0:\nonameos\");
-                    Console.WriteLine("Creating System Files.....");
-                    fs.CreateFile("0:\\nonameos\\System.txt");
-                    fs.CreateFile("0:\\nonameos\\User.cs");
-                    Console.Write("Please enter your username:");
-                    string user = Console.ReadLine();
-                    File.WriteAllText("0:\\nonameos\\User.cs", user);
+                fs.Initialize(true);
+                Directory.CreateDirectory(@"0:\nonameos\");
+                Console.WriteLine("Creating System Files.....");
+                fs.CreateFile("0:\\nonameos\\System.txt");
+                fs.CreateFile("0:\\nonameos\\User.cs");
+                Console.Write("Please enter your username:");
+                string user = Console.ReadLine();
+                File.WriteAllText("0:\\nonameos\\User.cs", user);
 
-                D:
-                    Console.Write("Add password ?(Y/N)");
-                    string passwd = Console.ReadLine();
-                    if (passwd == "Y" || passwd == "y")
-                    {
-                        fs.CreateFile("0:\\nonameos\\UserPassword.cs");
-                        Console.Write("Enter password for your user");
-                        string password = Console.ReadLine();
-                        File.WriteAllText(@"0:\nonameos\UserPassword.cs", password);
-                    }
-                    else if (passwd == "N" || passwd == "n")
-                    {
+            D:
+                Console.Write("Add password ?(Y/N)");
+                string passwd = Console.ReadLine();
+                if (passwd == "Y" || passwd == "y")
+                {
+                    fs.CreateFile("0:\\nonameos\\UserPassword.cs");
+                    Console.Write("Enter password for your user");
+                    string password = Console.ReadLine();
+                    File.WriteAllText(@"0:\nonameos\UserPassword.cs", password);
+                }
+                else if (passwd == "N" || passwd == "n")
+                {
 
                     }
                     else
