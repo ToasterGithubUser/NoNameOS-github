@@ -20,7 +20,7 @@ namespace CosmosKernel1
                 Console.ForegroundColor = ConsoleColor.Red;
                 Console.WriteLine("PANIC!");
                 Console.ForegroundColor = ConsoleColor.Gray;
-                Console.WriteLine("NoNameOS Milestone 3 has encountered an critical error that cant solve.Possible solutions:");
+                Console.WriteLine("NoNameOS Milestone # has encountered an critical error that cant solve.Possible solutions:");
                 Console.WriteLine("1.Try to restart your device");
                 Console.WriteLine("2.If problem still persists,email bug ( aworldman1000@gmail.com ) or create new issue on github");
                 Console.WriteLine("=====================================================================");

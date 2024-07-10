@@ -283,7 +283,7 @@ namespace CosmosKernel1
                     case "about":
                         Console.BackgroundColor = ConsoleColor.Red;
                         Console.WriteLine("thanks a lot to dontsmi1e for code support");
-                        Console.WriteLine("Welcome to NoNameOS 0.1.9 Pre-alpha! build 283: Milestone 4 Codename'Aero'");
+                        Console.WriteLine("Welcome to NoNameOS 0.1.9 Pre-alpha! build 285: Milestone 4 Codename'Aero'");
                         Console.WriteLine("Milestone 2 :adds File system and commands to interact with it!");
                         Console.WriteLine("Milestone 3 :adds login screen and setup");
                         Console.WriteLine("Milestone 3.1 :The Git Repo Update! Adds an GitHub repo.");
