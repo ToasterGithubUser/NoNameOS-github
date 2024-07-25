@@ -28,6 +28,8 @@
         <IgnoreDebugStubAttribute>True</IgnoreDebugStubAttribute>
         <ImplicitUsings>disable</ImplicitUsings>
         <AllowUnsafeBlocks>True</AllowUnsafeBlocks>
+        <CompileVBEMultiboot>False</CompileVBEMultiboot>
+        <OutputType>Library</OutputType>
     </PropertyGroup>
 
     <ItemGroup>

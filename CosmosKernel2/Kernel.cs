@@ -101,15 +101,15 @@ namespace CosmosKernel1
             Console.BackgroundColor = ConsoleColor.Green;
             Cosmos.Core.CPU.GetCPUBrandString();
             Console.BackgroundColor = ConsoleColor.Black;
-            if (File.Exists("0:\\nonameos\\User.cs"))
+            if (File.Exists("0:\\nonameos\\User.txt"))
             {
-                Console.WriteLine("Hello," + File.ReadAllText("0:\\nonameos\\User.cs"));
+                Console.WriteLine("Hello," + File.ReadAllText("0:\\nonameos\\User.txt"));
             }
             current_directory = @"0:\";
-            if (!File.Exists(@"0:\nonameos\User.cs"))
-                curren_directory = @"0:\";
+            if (!File.Exists(@"0:\nonameos\User.txt"))
+                curren_directory = current_directory;
             else
-                curren_directory = (File.ReadAllText("0:\\nonameos\\User.cs") + "$" + current_directory);
+                curren_directory = (File.ReadAllText("0:\\nonameos\\User.txt") + "$" + current_directory);
             if (File.Exists("0:\\nonameos\\UserPassword.cs"))
             {
                 
@@ -146,7 +146,7 @@ namespace CosmosKernel1
             current_directory = @"0:\";
 
             Console.BackgroundColor = ConsoleColor.Black;
-            if (!File.Exists(@"0:\nonameos\System.txt"))
+            if (!File.Exists(@"0:\nonameos\System.placeholder"))
             {
 
                 if (fs.Disks[0].Partitions.Count < 1)
@@ -160,11 +160,16 @@ namespace CosmosKernel1
                 fs.Initialize(true);
                 Directory.CreateDirectory(@"0:\nonameos\");
                 Console.WriteLine("Creating System Files.....");
-                fs.CreateFile("0:\\nonameos\\System.txt");
-                fs.CreateFile("0:\\nonameos\\User.cs");
+                fs.CreateFile("0:\\nonameos\\System.placeholder");
+                fs.CreateFile("0:\\nonameos\\User.txt");
+                fs.CreateFile("0:\\nonameos\\readme.txt");
+                File.WriteAllText("0:\\nonameos\\readme.txt", "System file currently placeholder, due to installing system not implemented.You can freely edit User.txt and UserPassword.cs(if you have).");
+                File.Delete("0:\\Kudzu.txt");
+                File.Delete("0:\\Root.txt");
+               
                 Console.Write("Please enter your username:");
                 string user = Console.ReadLine();
-                File.WriteAllText("0:\\nonameos\\User.cs", user);
+                File.WriteAllText("0:\\nonameos\\User.txt", user);
 
             D:
                 Console.Write("Add password ?(Y/N)");
@@ -186,6 +191,10 @@ namespace CosmosKernel1
                 }
 
             }
+            if (!File.Exists(@"0:\nonameos\User.txt"))
+                curren_directory = "$" + current_directory;
+            else
+                curren_directory = (File.ReadAllText("0:\\nonameos\\User.txt") + "$" + current_directory);
             Console.Write(curren_directory);
             string input = Console.ReadLine();
             switch (input)

@@ -1,6 +1,6 @@
 using System.IO;
 
-namespace CosmosKernel1
+namespace CosmosKernel2
 {
     class FScreate
     {
