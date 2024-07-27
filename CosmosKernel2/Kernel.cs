@@ -112,11 +112,11 @@ namespace CosmosKernel1
                 curren_directory = current_directory;
             else
                 curren_directory = (File.ReadAllText("0:\\nonameos\\User.txt") + "$" + current_directory);
-            if (File.Exists("0:\\nonameos\\UserPassword.cs"))
+            if (File.Exists("0:\\nonameos\\UserPassword.txt"))
             {
                 
                 E:
-                string password = File.ReadAllText(@"0:\\nonameos\\UserPassword.cs");
+                string password = File.ReadAllText(@"0:\\nonameos\\UserPassword.txt");
                 Console.Write("Please enter password:");
                 string inpdut = Console.ReadLine();
                 if (inpdut == password)
@@ -127,7 +127,7 @@ namespace CosmosKernel1
                 else
                 {
 
-                    if (File.Exists("0:\\nonameos\\UserPassword.cs"))
+                    if (File.Exists("0:\\nonameos\\UserPassword.txt"))
                     {
                         Console.WriteLine("Unknown password! Try again!");
                         goto E;
@@ -148,7 +148,7 @@ namespace CosmosKernel1
             Kernel kernel = new Kernel();
 
             current_directory = @"0:\";
-
+            fs.Initialize(true);
             Console.BackgroundColor = ConsoleColor.Black;
             if (!File.Exists(@"0:\nonameos\System.placeholder"))
             {
@@ -156,21 +156,32 @@ namespace CosmosKernel1
                 if (fs.Disks[0].Partitions.Count < 1)
                 {
                     Console.WriteLine("Welcome to NoNameOS! We're doing final touches...");
-                    fs.Disks[0].CreatePartition(512);
-                    fs.Disks[0].FormatPartition(0, "FAT32", false);
-                    Cosmos.Core.ACPI.Reboot();
+                    try
+                    {
+                        fs.Disks[0].CreatePartition(512);
+                        fs.Disks[0].FormatPartition(0, "FAT32", false);
+                        Cosmos.System.Power.Reboot();
+                    }
+                    catch(Exception e) {
+                        Console.WriteLine(e.ToString());   
+                    }
                 }
 
-                fs.Initialize(true);
+                try 
+                { 
                 Directory.CreateDirectory(@"0:\nonameos\");
                 Console.WriteLine("Creating System Files.....");
                 fs.CreateFile("0:\\nonameos\\System.placeholder");
                 fs.CreateFile("0:\\nonameos\\User.txt");
                 fs.CreateFile("0:\\nonameos\\readme.txt");
                 File.WriteAllText("0:\\nonameos\\readme.txt", "System file currently placeholder, due to installing system not implemented.You can freely edit User.txt and UserPassword.cs(if you have).");
-                File.Delete("0:\\Kudzu.txt");
-                File.Delete("0:\\Root.txt");
-               
+                }
+                catch (Exception e)
+                {
+                    Console.WriteLine(e.ToString());   
+                }
+                
+                
                 Console.Write("Please enter your username:");
                 string user = Console.ReadLine();
                 File.WriteAllText("0:\\nonameos\\User.txt", user);
@@ -180,10 +191,10 @@ namespace CosmosKernel1
                 string passwd = Console.ReadLine();
                 if (passwd == "Y" || passwd == "y")
                 {
-                    fs.CreateFile("0:\\nonameos\\UserPassword.cs");
+                    fs.CreateFile("0:\\nonameos\\UserPassword.txt");
                     Console.Write("Enter password for your user");
                     string password = Console.ReadLine();
-                    File.WriteAllText(@"0:\nonameos\UserPassword.cs", password);
+                    File.WriteAllText(@"0:\nonameos\UserPassword.txt", password);
                 }
                 else if (passwd == "N" || passwd == "n")
                 {
@@ -206,7 +217,7 @@ namespace CosmosKernel1
                 case "about":
                     Console.BackgroundColor = ConsoleColor.Red;
                     Console.WriteLine("thanks a lot to dontsmi1e for code support");
-                    Console.WriteLine("Welcome to NoNameOS 0.1.8 Pre-alpha! build 257: Milestone 3.6.Codename'Cheetah'");
+                    Console.WriteLine("Welcome to NoNameOS 0.1.8 Pre-alpha! build 269: Milestone 3.6.Codename'Cheetah'");
                     Console.WriteLine("Milestone 2 :adds File system and commands to interact with it!");
                     Console.WriteLine("Milestone 3 :adds login screen and setup");
                     Console.WriteLine("Milestone 3.1 :The Git Repo Update! Adds an GitHub repo.");

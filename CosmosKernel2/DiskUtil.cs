@@ -21,8 +21,10 @@ namespace CosmosKernel1
                 switch (dsk)
                 {
                     case ("list disk"):
-                        Console.WriteLine(fs.GetDisks());
-                        fs.GetDisks();
+                        foreach (Disk disk in fs.GetDisks())
+                        {
+                            disk.DisplayInformation();
+                        }
                         break;
                     case ("format 0:"):
                         Console.WriteLine("WARNING! do you REALLY want to format main disk? y/n");
