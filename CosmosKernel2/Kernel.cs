@@ -17,6 +17,7 @@ using System.Buffers;
 using Cosmos.Core;
 using static CosmosKernel1.PanicHandler;
 using CosmosKernel2;
+using static CosmosKernel1.DiskUtil;
 // NOTE: Proper use of Panic
 ///catch (Exception e)
 ///{
@@ -205,7 +206,7 @@ namespace CosmosKernel1
                 case "about":
                     Console.BackgroundColor = ConsoleColor.Red;
                     Console.WriteLine("thanks a lot to dontsmi1e for code support");
-                    Console.WriteLine("Welcome to NoNameOS 0.1.8 Pre-alpha! build 248: Milestone 3.6.Codename'Cheetah'");
+                    Console.WriteLine("Welcome to NoNameOS 0.1.8 Pre-alpha! build 257: Milestone 3.6.Codename'Cheetah'");
                     Console.WriteLine("Milestone 2 :adds File system and commands to interact with it!");
                     Console.WriteLine("Milestone 3 :adds login screen and setup");
                     Console.WriteLine("Milestone 3.1 :The Git Repo Update! Adds an GitHub repo.");
@@ -289,52 +290,7 @@ namespace CosmosKernel1
                     PanicHandler.crash("test");
                     break;
                 case "diskutil":
-                    IsDUNeeded = true;
-                    Console.WriteLine("diskutil v0.1. type help for help.");
-                    while (IsDUNeeded)
-                    {
-                        string dsk = Console.ReadLine();
-                        switch (dsk)
-                        {
-                            case ("list disk"):
-                                Console.WriteLine(fs.GetDisks());
-                                break;
-                            case ("format 0:"):
-                                Console.WriteLine("WARNING! do you REALLY want to format main disk? y/n");
-                                bool CritSituation = true;
-                                while (CritSituation) {
-                                    string format = Console.ReadLine();
-                                    switch (format)
-                                    {
-
-                                        case "y":
-                                            fs.Disks[0].CreatePartition(512);
-                                            fs.Disks[0].FormatPartition(0, "FAT32", false);
-                                            Sys.Power.Reboot();
-                                            break;
-                                        case "n":
-                                            CritSituation = false;
-                                            break;
-                                        default:
-                                            CritSituation = false;
-                                            break;
-                                    }           
-                                }
-                                break;
-                            case ("exit"):
-                                IsDUNeeded = false;
-                                break;
-                            case ("help"):
-                                Console.WriteLine("list disk - lists disk");
-                                Console.WriteLine("format 0: - formats main disk");
-                                break;
-                            case { } when input.StartsWith(" "):
-                                break;
-                            default:
-                                Console.WriteLine("syntax invalid");
-                                break;
-                        }
-                    }
+                    DiskUtil.call(IsDUNeeded, input);
                     break;
                 case "sigmafetch":
                     var fs_type1 = fs.GetFileSystemType(@"0:\");
