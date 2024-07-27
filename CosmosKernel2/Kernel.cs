@@ -18,6 +18,7 @@ using Cosmos.Core;
 using static CosmosKernel1.PanicHandler;
 using CosmosKernel2;
 using static CosmosKernel1.DiskUtil;
+using System.Security.Cryptography;
 // NOTE: Proper use of Panic
 ///catch (Exception e)
 ///{
@@ -144,7 +145,10 @@ namespace CosmosKernel1
 
         protected override void Run()
         {
+            int x = 0;
             bool IsDUNeeded = false;
+            bool delete = false;
+            bool create = false;
             Kernel kernel = new Kernel();
 
             current_directory = @"0:\";
@@ -217,7 +221,7 @@ namespace CosmosKernel1
                 case "about":
                     Console.BackgroundColor = ConsoleColor.Red;
                     Console.WriteLine("thanks a lot to dontsmi1e for code support");
-                    Console.WriteLine("Welcome to NoNameOS 0.1.8 Pre-alpha! build 269: Milestone 3.6.Codename'Cheetah'");
+                    Console.WriteLine("Welcome to NoNameOS 0.1.8 Pre-alpha! build 278: Milestone 3.6.Codename'Cheetah'");
                     Console.WriteLine("Milestone 2 :adds File system and commands to interact with it!");
                     Console.WriteLine("Milestone 3 :adds login screen and setup");
                     Console.WriteLine("Milestone 3.1 :The Git Repo Update! Adds an GitHub repo.");
@@ -301,7 +305,29 @@ namespace CosmosKernel1
                     PanicHandler.crash("test");
                     break;
                 case "diskutil":
-                    DiskUtil.call(IsDUNeeded, input);
+                    
+                    DiskUtil.call(IsDUNeeded, input,delete , create, x);
+                    if (delete = true)
+                    {
+                        try
+                        {
+                            fs.Disks[0].DeletePartition(0);
+                        }
+                        catch (Exception e) { Console.WriteLine(e.ToString()); }
+                    }
+                    if (create = true) 
+                    {
+                        try
+                        {
+                            
+                            fs.Disks[0].CreatePartition(x);
+                            fs.Disks[0].FormatPartition(0, "FAT32", false);
+                        }
+                        catch (Exception e)
+                        {
+                            Console.WriteLine(e.ToString());
+                        }
+                    }
                     break;
                 case "sigmafetch":
                     var fs_type1 = fs.GetFileSystemType(@"0:\");

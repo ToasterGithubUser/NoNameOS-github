@@ -3,29 +3,25 @@ using Cosmos.System.FileSystem.VFS;
 using Cosmos.System.FileSystem;
 using Sys = Cosmos.System;
 using System.IO;
+using Microsoft.VisualBasic.FileIO;
 namespace CosmosKernel1
 {
     internal class DiskUtil
     {
 
         
-        public static void call(bool IsDUNeeded , string input)
+        public static void call(bool IsDUNeeded , string input , bool delete  , bool create , int x)
         {
             Sys.FileSystem.CosmosVFS fs = new Sys.FileSystem.CosmosVFS();
-            
+            string dsk = Console.ReadLine();
             IsDUNeeded = true;
             Console.WriteLine("diskutil v0.1. type help for help.");
             while (IsDUNeeded)
             {
-                string dsk = Console.ReadLine();
+                
                 switch (dsk)
                 {
-                    case ("list disk"):
-                        foreach (Disk disk in fs.GetDisks())
-                        {
-                            disk.DisplayInformation();
-                        }
-                        break;
+
                     case ("format 0:"):
                         Console.WriteLine("WARNING! do you REALLY want to format main disk? y/n");
                         bool CritSituation = true;
@@ -38,7 +34,11 @@ namespace CosmosKernel1
                                 case "y":
                                     try
                                     {
-                                        fs.Disks[0].DeletePartition(0);
+                                        delete = true;
+                                        CritSituation = false;
+                                        
+                                        break;
+
                                     }
                                     catch(Exception e)
                                     { Console.WriteLine(e.ToString()); }
@@ -55,9 +55,14 @@ namespace CosmosKernel1
                     case ("exit"):
                         IsDUNeeded = false;
                         break;
+                    case { } when input.StartsWith("create part") :
+                         x = int.Parse(input.Remove(0, 12));
+                        create = true;  
+                        break;
                     case ("help"):
-                        Console.WriteLine("list disk - lists disk");
+                        Console.WriteLine("exit - exit");
                         Console.WriteLine("format 0: - formats main disk");
+                        Console.WriteLine("create part (mb) - makes partition with specified size");
                         break;
                     case { } when input.StartsWith(" "):
                         break;
