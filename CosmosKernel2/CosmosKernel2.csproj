@@ -28,6 +28,7 @@
         <IgnoreDebugStubAttribute>True</IgnoreDebugStubAttribute>
         <ImplicitUsings>disable</ImplicitUsings>
         <AllowUnsafeBlocks>True</AllowUnsafeBlocks>
+        <UseUEFI>False</UseUEFI>
     </PropertyGroup>
 
     <ItemGroup>

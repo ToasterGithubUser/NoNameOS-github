@@ -98,11 +98,11 @@ namespace CosmosKernel1
             Console.BackgroundColor = ConsoleColor.Black;
             
             
-            System.Threading.Thread.Sleep(1000);
+
            
             Console.BackgroundColor = ConsoleColor.Black;
             Console.BackgroundColor = ConsoleColor.Red;
-            Console.WriteLine("Shell Started. Type help for help,thanks a lot to dontsmi1e for code support");
+            Console.WriteLine("CLI Started. Type help for help,thanks a lot to dontsmi1e for code support");
             Console.BackgroundColor = ConsoleColor.Blue;
             current_directory = @"0:\";
             
