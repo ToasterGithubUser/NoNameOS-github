@@ -221,7 +221,7 @@ namespace CosmosKernel1
                 case "about":
                     Console.BackgroundColor = ConsoleColor.Red;
                     Console.WriteLine("thanks a lot to dontsmi1e for code support");
-                    Console.WriteLine("Welcome to NoNameOS 0.1.8 Pre-alpha! build 280: Milestone 3.6.Codename'Cheetah'");
+                    Console.WriteLine("Welcome to NoNameOS 0.1.8 Pre-alpha! build 292: Milestone 3.6.Codename'Cheetah'");
                     Console.WriteLine("Milestone 2 :adds File system and commands to interact with it!");
                     Console.WriteLine("Milestone 3 :adds login screen and setup");
                     Console.WriteLine("Milestone 3.1 :The Git Repo Update! Adds an GitHub repo.");
@@ -305,21 +305,62 @@ namespace CosmosKernel1
                     PanicHandler.crash("test");
                     break;
                 case "diskutil":
-                    
-                    DiskUtil.call(IsDUNeeded, input,delete);
-                    if (delete = true)
+                    IsDUNeeded = true;
+                    Console.WriteLine("diskutil v0.1. type help for help.");
+                    while (IsDUNeeded)
                     {
-                        try
+                        string dsk = Console.ReadLine();
+                        switch (dsk)
                         {
-                            fs.Disks[0].DeletePartition(0);
-                            Sys.Power.Reboot();
+                            case ("list disk"):
+                                Console.WriteLine(fs.GetDisks());
+                                break;
+                            case ("format 0:"):
+                                Console.WriteLine("WARNING! do you REALLY want to format main disk? y/n");
+                                bool CritSituation = true;
+                                while (CritSituation)
+                                {
+                                    string format = Console.ReadLine();
+                                    switch (format)
+                                    {
+
+                                        case "y":
+                                            fs.Disks[0].DeletePartition(0);
+                                            fs.Disks[0].CreatePartition(512);
+                                            fs.Disks[0].FormatPartition(0, "FAT32", false);
+                                            Sys.Power.Reboot();
+                                            break;
+                                        case "n":
+                                            CritSituation = false;
+                                            break;
+                                        default:
+                                            CritSituation = false;
+                                            break;
+                                    }
+                                }
+                                break;
+                            case ("exit"):
+                                IsDUNeeded = false;
+                                break;
+                            case ("help"):
+                                Console.WriteLine("list disk - lists disk");
+                                Console.WriteLine("format 0: - formats main disk AND asks you to specify partition size (mb)");
+                                break;
+                            case { } when input.StartsWith(" "):
+                                break;
+                            default:
+                                Console.WriteLine("syntax invalid");
+                                break;
                         }
-                        catch (Exception e) { Console.WriteLine(e.ToString()); }
                     }
-
-
-
                     break;
+
+
+                    
+            
+
+
+
                 case "sigmafetch":
                     var fs_type1 = fs.GetFileSystemType(@"0:\");
                     var drive1 = new DriveInfo("0");
