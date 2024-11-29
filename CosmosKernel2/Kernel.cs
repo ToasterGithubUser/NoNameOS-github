@@ -18,9 +18,7 @@ using Cosmos.Core;
 using static CosmosKernel1.PanicHandler;
 using CosmosKernel2;
 using static CosmosKernel1.DiskUtil;
-using System.Security.Cryptography;
-using System.Linq.Expressions;
-using static CosmosKernel1.StringCipher;
+using static CosmosKernel1.TalosSecurity;
 // NOTE: Proper use of Panic
 /*catch (Exception e)
 {
