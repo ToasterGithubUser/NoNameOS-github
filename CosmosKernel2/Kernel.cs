@@ -19,11 +19,13 @@ using static CosmosKernel1.PanicHandler;
 using CosmosKernel2;
 using static CosmosKernel1.DiskUtil;
 using System.Security.Cryptography;
+using System.Linq.Expressions;
+using static CosmosKernel1.StringCipher;
 // NOTE: Proper use of Panic
-///catch (Exception e)
-///{
-///    PanicHandler.crash(e.ToString());
-///}
+/*catch (Exception e)
+{
+    PanicHandler.crash(e.ToString());
+}*/
 
 
 namespace CosmosKernel1
@@ -32,10 +34,10 @@ namespace CosmosKernel1
 
     public class Kernel : Sys.Kernel
     {
-        public static VGAScreen VScreen = new VGAScreen();
+   
 
 
-        public void FormatDisk(int index, string format, bool quick = true) { }
+       
         Sys.FileSystem.CosmosVFS fs = new Sys.FileSystem.CosmosVFS();
 
 
@@ -56,7 +58,6 @@ namespace CosmosKernel1
         }
 
         public bool IsMBR { get; }
-
 
 
 
@@ -113,14 +114,14 @@ namespace CosmosKernel1
                 curren_directory = current_directory;
             else
                 curren_directory = (File.ReadAllText("0:\\nonameos\\User.txt") + "$" + current_directory);
-            if (File.Exists("0:\\nonameos\\UserPassword.txt"))
+            if (File.Exists("0:\\nonameos\\UserPassword.secure"))
             {
                 
                 E:
-                string password = File.ReadAllText(@"0:\\nonameos\\UserPassword.txt");
+                string password = File.ReadAllText(@"0:\\nonameos\\UserPassword.secure");
                 Console.Write("Please enter password:");
                 string inpdut = Console.ReadLine();
-                if (inpdut == password)
+                if (inpdut == Decrypt(password)) 
                 {
                     Console.Clear();
                     Run();
@@ -128,7 +129,7 @@ namespace CosmosKernel1
                 else
                 {
 
-                    if (File.Exists("0:\\nonameos\\UserPassword.txt"))
+                    if (File.Exists("0:\\nonameos\\UserPassword.secure"))
                     {
                         Console.WriteLine("Unknown password! Try again!");
                         goto E;
@@ -145,11 +146,11 @@ namespace CosmosKernel1
 
         protected override void Run()
         {
-            int x = 0;
+            
             bool IsDUNeeded = false;
             bool delete = false;
             bool create = false;
-            Kernel kernel = new Kernel();
+            
 
             current_directory = @"0:\";
             fs.Initialize(true);
@@ -195,10 +196,16 @@ namespace CosmosKernel1
                 string passwd = Console.ReadLine();
                 if (passwd == "Y" || passwd == "y")
                 {
-                    fs.CreateFile("0:\\nonameos\\UserPassword.txt");
+                    fs.CreateFile("0:\\nonameos\\UserPassword.secure");
                     Console.Write("Enter password for your user");
                     string password = Console.ReadLine();
-                    File.WriteAllText(@"0:\nonameos\UserPassword.txt", password);
+                    string asad = Encrypt(password);
+                    Console.WriteLine("Codename 'Talos' check:" + Encrypt(password) + Decrypt(asad));
+                    if (Decrypt(asad) == password)
+                    {
+                        Console.WriteLine("OK!");
+                    }
+                    File.WriteAllText(@"0:\nonameos\UserPassword.secure",asad);
                 }
                 else if (passwd == "N" || passwd == "n")
                 {
@@ -221,7 +228,7 @@ namespace CosmosKernel1
                 case "about":
                     Console.BackgroundColor = ConsoleColor.Red;
                     Console.WriteLine("thanks a lot to dontsmi1e for code support");
-                    Console.WriteLine("Welcome to NoNameOS 0.1.8 Pre-alpha! build 292: Milestone 3.6.Codename'Cheetah'");
+                    Console.WriteLine("Welcome to NoNameOS 0.1.8 Pre-alpha! build 305: Milestone 3.6.Codename'Cheetah'");
                     Console.WriteLine("Milestone 2 :adds File system and commands to interact with it!");
                     Console.WriteLine("Milestone 3 :adds login screen and setup");
                     Console.WriteLine("Milestone 3.1 :The Git Repo Update! Adds an GitHub repo.");
@@ -309,13 +316,13 @@ namespace CosmosKernel1
                     Console.WriteLine("diskutil v0.1. type help for help.");
                     while (IsDUNeeded)
                     {
-                        string dsk = Console.ReadLine();
-                        switch (dsk)
+                        string dsl = Console.ReadLine();
+                        switch (dsl)
                         {
                             case ("list disk"):
                                 Console.WriteLine(fs.GetDisks());
                                 break;
-                            case ("format 0:"):
+                            case { } when dsl.StartsWith("format 0"):
                                 Console.WriteLine("WARNING! do you REALLY want to format main disk? y/n");
                                 bool CritSituation = true;
                                 while (CritSituation)
@@ -325,9 +332,14 @@ namespace CosmosKernel1
                                     {
 
                                         case "y":
-                                            fs.Disks[0].DeletePartition(0);
-                                            fs.Disks[0].CreatePartition(512);
+                                            string iLoveCHina = dsl.Remove(0, 9);
+                                            int.TryParse(iLoveCHina, out int j);
+                                            fs.Disks[0].Clear();
+                                            
+                                            
+                                            fs.Disks[0].CreatePartition(j);
                                             fs.Disks[0].FormatPartition(0, "FAT32", false);
+                                            
                                             Sys.Power.Reboot();
                                             break;
                                         case "n":
@@ -345,6 +357,7 @@ namespace CosmosKernel1
                             case ("help"):
                                 Console.WriteLine("list disk - lists disk");
                                 Console.WriteLine("format 0: - formats main disk AND asks you to specify partition size (mb)");
+                                Console.WriteLine("     Usage: 'format 0 1024'");
                                 break;
                             case { } when input.StartsWith(" "):
                                 break;
@@ -367,11 +380,11 @@ namespace CosmosKernel1
                     Console.WriteLine("OS:");
                     Console.Write("CPU:");
                     Console.WriteLine(Cosmos.Core.CPU.GetCPUBrandString());
-                    Console.WriteLine("Drive:");
-                    Console.WriteLine("     " + $"{drive1.TotalSize}" + " bytes");
-                    Console.WriteLine("     " + $"{drive1.AvailableFreeSpace}" + " bytes free");
-                    Console.WriteLine("File System:" + fs_type1);
-                    Console.WriteLine("RAM:" + GCImplementation.GetAvailableRAM() + "MB(Avaliable)");
+                    Console.WriteLine("     Drive:");
+                    Console.WriteLine("         " + $"{drive1.TotalSize}" + " bytes");
+                    Console.WriteLine("         " + $"{drive1.AvailableFreeSpace}" + " bytes free");
+                    Console.WriteLine("     File System:" + fs_type1);
+                    Console.WriteLine("     RAM:" + GCImplementation.GetAvailableRAM() + "MB(Avaliable)");
                     break;
                 case "":
                     break;
