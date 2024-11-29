@@ -44,7 +44,6 @@ namespace CosmosKernel1
 
         public string current_directory;
         public string curren_directory;
-        private string directory;
         public static class BootManager
         {
             public static void Boot()
@@ -146,8 +145,6 @@ namespace CosmosKernel1
         {
             
             bool IsDUNeeded = false;
-            bool delete = false;
-            bool create = false;
             
 
             current_directory = @"0:\";
@@ -295,10 +292,6 @@ namespace CosmosKernel1
                         var dir = new DirectoryInfo(d);
                         var dirName = dir.Name;
 
-                // Console.WriteLine(fs.GetDisks()); (make diskpart ripoff)
-                //format fs.Disks[0].CreatePartition(512);
-                //fs.Disks[0].FormatPartition(0, "FAT32", false);
-                //Sys.Power.Reboot();
                         Console.WriteLine(dirName + " <DIR>");
                     }
                     Console.WriteLine("\n");
