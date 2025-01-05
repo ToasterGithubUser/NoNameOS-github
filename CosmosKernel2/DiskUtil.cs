@@ -4,6 +4,7 @@ using Cosmos.System.FileSystem;
 using Sys = Cosmos.System;
 using System.IO;
 using Microsoft.VisualBasic.FileIO;
+//abandoned bc putting in kernel.cs is easier
 namespace CosmosKernel1
 {
     internal class DiskUtil

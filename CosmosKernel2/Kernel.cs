@@ -42,7 +42,7 @@ namespace CosmosKernel1
     
 
 
-        public string current_directory;
+        public string current_directory = @"0:\";
         public string curren_directory;
         public static class BootManager
         {
@@ -106,7 +106,7 @@ namespace CosmosKernel1
             {
                 Console.WriteLine("Hello," + File.ReadAllText("0:\\nonameos\\User.txt"));
             }
-            current_directory = @"0:\";
+            
             if (!File.Exists(@"0:\nonameos\User.txt"))
                 curren_directory = current_directory;
             else
@@ -145,11 +145,18 @@ namespace CosmosKernel1
         {
             
             bool IsDUNeeded = false;
-            
 
-            current_directory = @"0:\";
+
+            
             fs.Initialize(true);
             Console.BackgroundColor = ConsoleColor.Black;
+            if (!File.Exists(@"0:\nonameos\User.txt") && File.Exists(@"0:\nonameos\System.placeholder"))
+            {
+                fs.CreateFile("0:\\nonameos\\User.txt");
+                Console.WriteLine("Something happened during install, or username file corrupted.Please enter username:");
+                string user = Console.ReadLine();
+                File.WriteAllText("0:\\nonameos\\User.txt", user);
+            }
             if (!File.Exists(@"0:\nonameos\System.placeholder"))
             {
 
@@ -187,7 +194,7 @@ namespace CosmosKernel1
                 File.WriteAllText("0:\\nonameos\\User.txt", user);
 
             D:
-                Console.Write("Add password ?(Y/N)");
+                Console.Write("Add password ?(Y/N) (default N)");
                 string passwd = Console.ReadLine();
                 if (passwd == "Y" || passwd == "y")
                 {
@@ -208,7 +215,7 @@ namespace CosmosKernel1
                 }
                 else
                 {
-                    goto D;
+                
                 }
 
             }
@@ -222,15 +229,20 @@ namespace CosmosKernel1
             {
                 case "about":
                     Console.BackgroundColor = ConsoleColor.Red;
+                    Console.WriteLine("Welcome to NoNameOS 0.1.9 Pre-alpha! build 318: Milestone 3.7 Codename'Cleaner'");
+                    Console.BackgroundColor = ConsoleColor.Blue;
+                    break;
+                case "changelog":
                     Console.WriteLine("thanks a lot to dontsmi1e for code support");
-                    Console.WriteLine("Welcome to NoNameOS 0.1.8 Pre-alpha! build 305: Milestone 3.6.Codename'Cheetah'");
                     Console.WriteLine("Milestone 2 :adds File system and commands to interact with it!");
                     Console.WriteLine("Milestone 3 :adds login screen and setup");
                     Console.WriteLine("Milestone 3.1 :The Git Repo Update! Adds an GitHub repo.");
                     Console.WriteLine("Milestone 3.5 :Optimizations Update!");
                     Console.WriteLine("Milestone 3.6 :Optimizations update part 2! Puts (almost) all commands in a     switch case, so theoretically they will be faster");
-                    Console.BackgroundColor = ConsoleColor.Blue;
+                    Console.WriteLine("Build 314 : Pi Build!");
+                    Console.WriteLine("Minestone 3.7:Makes some cosmetical changes to OS. Will be last                 sub-milestone before 0.2 .");
                     break;
+
                 case "help":
                     Console.BackgroundColor = ConsoleColor.Gray;
                     Console.WriteLine("==============================================================================");
@@ -250,12 +262,13 @@ namespace CosmosKernel1
                     Console.WriteLine("==============================================================================");
                     Console.BackgroundColor = ConsoleColor.Black;
                     break;
-                case { } when input.StartsWith("cd"):
-                    if(Directory.Exists(@"0:\" + input.Remove(0, 3))) {
-                        Console.WriteLine("Ok!");
+                case { } when input.StartsWith("cd") && (input != "cd .."):
+                    string dirka = input.Remove(0, 3);
 
-                        current_directory = current_directory + input.Remove(0, 3);
-                        curren_directory = "$" + current_directory;
+                    if(Directory.Exists(current_directory + dirka)) {
+                        Console.WriteLine("Ok!");
+                        current_directory = current_directory + dirka;
+                        curren_directory = (File.ReadAllText("0:\\nonameos\\User.txt") + "$" + current_directory + "\\:");
                     }
                 else
                     {
@@ -264,6 +277,7 @@ namespace CosmosKernel1
                     break;
                 case "cd ..":
                     current_directory = @"0:\";
+                    curren_directory = (File.ReadAllText("0:\\nonameos\\User.txt") + "$" + current_directory );
                     break;
             
                 case "shutdown":
@@ -315,14 +329,16 @@ namespace CosmosKernel1
                                 break;
                             case { } when dsl.StartsWith("format 0"):
                                 Console.WriteLine("WARNING! do you REALLY want to format main disk? y/n");
+                                //critical sutiation, user wants to delete disk and we lowkey dont want it.
                                 bool CritSituation = true;
                                 while (CritSituation)
                                 {
                                     string format = Console.ReadLine();
                                     switch (format)
                                     {
-
+                                        
                                         case "y":
+                                            //now we're in BIG SHIT. We need to clear disk , create partition , format it, and optionally try to not to shit our pants.
                                             string iLoveCHina = dsl.Remove(0, 9);
                                             int.TryParse(iLoveCHina, out int j);
                                             fs.Disks[0].Clear();
@@ -366,9 +382,10 @@ namespace CosmosKernel1
 
 
                 case "sigmafetch":
+                    //TODO: add some kind of little logo for our system. Any ideas are welcome
                     var fs_type1 = fs.GetFileSystemType(@"0:\");
                     var drive1 = new DriveInfo("0");
-                    Console.WriteLine("OS:");
+                    Console.WriteLine("OS:NoNameOS");
                     Console.Write("CPU:");
                     Console.WriteLine(Cosmos.Core.CPU.GetCPUBrandString());
                     Console.WriteLine("     Drive:");
@@ -411,11 +428,13 @@ namespace CosmosKernel1
                     {
                         try
                         {
-                            Console.WriteLine(File.ReadAllText(@"0:\" + input.Remove(0, 4)));
+                            Console.WriteLine(File.ReadAllText(current_directory + '/'+ input.Remove(0,4)));
                         }
                         catch (Exception e)
                         {
                             Console.WriteLine(e.ToString());
+                            Console.WriteLine(current_directory);
+                            Console.WriteLine(current_directory + input.Remove(0, 4));
                         }
                     }
                     break;
@@ -424,7 +443,7 @@ namespace CosmosKernel1
                     {
                         try
                         {
-                            File.WriteAllText(@"0:\" + input.Remove(0, 6), write);
+                            File.WriteAllText(current_directory + '/' + input.Remove(0, 6), write);
                         }
                         catch (Exception e)
                         {
@@ -437,7 +456,7 @@ namespace CosmosKernel1
                     {
                         try
                         {
-                            File.Delete(@"0:\" + input.Remove(0, 6));
+                            File.Delete(current_directory + '/' + input.Remove(0, 3));
                         }
                         catch (Exception e)
                         {
@@ -450,7 +469,7 @@ namespace CosmosKernel1
                     {
                         try
                         {
-                            var file_stream = File.Create(@"0:\" + input.Remove(0, 7));
+                            var file_stream = File.Create(current_directory + '/' + input.Remove(0, 7));
                         }
                         catch (Exception e)
                         {

@@ -2,7 +2,7 @@
 using System.Text;
 using System.IO;
 using System.Linq;
-
+//06.01.2025: temporary password security method
 namespace CosmosKernel1
 {
     public static class TalosSecurity
