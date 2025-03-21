@@ -4,8 +4,7 @@
 
 </p>
 # <b> Welcome to NoNameOS!</b>
-> [!CAUTION]
->OS is 'garbage' at this point of development, many functions do not work any/or broken.
+
 ## Made with [Cosmos](https://github.com/CosmosOS/Cosmos)
 
 BRANCH INTRODUCTION:
@@ -19,3 +18,5 @@ GUI-test:based on '3.5-milestone-test', CGS(Previously PrismAPI.Graphics) testin
 project-delta:LiveCD tests.
 > [!NOTE]
 > You need DevKit to compile OS.
+> [!CAUTION]
+>OS is 'garbage' at this point of development, many functions do not work any/or broken.
