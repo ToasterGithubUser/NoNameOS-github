@@ -3,7 +3,8 @@
 <img src=https://github.com/ToasterGithubUser/NoNameOS-github/assets/73711167/104703a0-31f3-48b8-953e-e29be32b5e0e>
 
 </p>
-
+> [!WARNING]
+>OS is 'garbage' at this point of development, many functions do not work any/or broken.
 # <b> Welcome to NoNameOS!</b>
 
 ## Made with [Cosmos](https://github.com/CosmosOS/Cosmos)
