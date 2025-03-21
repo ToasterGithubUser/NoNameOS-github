@@ -8,7 +8,8 @@
 ## Made with [Cosmos](https://github.com/CosmosOS/Cosmos)
 
 BRANCH INTRODUCTION:
-
+> [!CAUTION]
+>OS is 'garbage' at this point of development, many functions do not work any/or broken.
 master- stable, fully working source code.
 
 3.5-milestone-test: optimizations, was merged with 'master; branch. 
