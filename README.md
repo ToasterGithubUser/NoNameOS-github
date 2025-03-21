@@ -4,7 +4,7 @@
 
 </p>
 > [!CAUTION]
->OS is 'garbage' at this point of development, many functions do not work any/or broken.
+> Advises about risks or negative outcomes of certain actions.
 # <b> Welcome to NoNameOS!</b>
 
 ## Made with [Cosmos](https://github.com/CosmosOS/Cosmos)
