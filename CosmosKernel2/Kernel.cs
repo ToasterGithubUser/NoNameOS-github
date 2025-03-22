@@ -206,12 +206,31 @@ namespace CosmosKernel1
 
             Kernel kernel = new Kernel();
             current_directory = @"0:\";
+            int addd = 1;
             if (a == "graphics")
             {
+                Task_Manager.Task_manager();
+
+                //Now lets make a menu
+                Menu.Menu_mgr();
+                //And that's it. Making a button is the same, but you don't have to do the same thing backwords
+                ImprovedVBE.DrawImageAlpha(curs, (int)MouseManager.X, (int)MouseManager.Y);
+
+                Heap.Collect();
+                //This will help running your OS much longer
+                canvas.DrawString((MouseManager.X + "," + MouseManager.Y), PCScreenFont.Default, Color.Black, 1700, 10);
+                
+                ImprovedVBE.display(canvas);
+
+                ImprovedVBE._DrawACSIIString((MouseManager.X + " " + MouseManager.Y), 1920, 10, 16777215);
 
 
                 //16777215 is white
-                ImprovedVBE.clear(16777215);
+                //ImprovedVBE.clear(16777215);
+
+
+                ImprovedVBE.display(canvas);
+                
 
                 //init
                 Task_Manager.Task_manager();
@@ -224,7 +243,7 @@ namespace CosmosKernel1
                 Heap.Collect();
                 //This will help running your OS much longer
                 canvas.DrawString((MouseManager.X + "," + MouseManager.Y), PCScreenFont.Default, Color.Black, 1700, 10);
-                canvas.Display();
+                
                 ImprovedVBE.display(canvas);
 
                 ImprovedVBE._DrawACSIIString((MouseManager.X + " " + MouseManager.Y), 1920, 10, 16777215);

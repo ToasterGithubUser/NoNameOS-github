@@ -30,7 +30,7 @@ namespace SoundTest
 
         public void init()
         {
-            //cover = new Bitmap(Canvas);
+            cover = new Bitmap(Canvas);
         }
         public static void display(Canvas c)
         {

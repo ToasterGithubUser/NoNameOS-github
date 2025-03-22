@@ -14,7 +14,7 @@ namespace SoundTest.Applications.Task_Scheduler
         public static int indicator = 0;
         public static bool reversed = false;
         public static int x = 4;
-        public static int y = 79;
+        public static int y = 80;
         public static List<int> data = new List<int>();
         public static int counter = 0;
         public static int foo = 0;
